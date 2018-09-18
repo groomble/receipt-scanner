@@ -3,6 +3,6 @@ Receipt Scanner
 Fall of 2018
 
 Group Members: 
-Nathan Hodgson
+Nathan Hodgson,
 Jules Bibonimana
 
