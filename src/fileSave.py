@@ -2,9 +2,9 @@ import os
 from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER='./apload_folder' #Directory to store files
+UPLOAD_FOLDER=os.path.dirname(os.path.realpath(__file__))+'/apload_folder' #Directory to store files
 
-ALLOWED_EXTENSIONS=set(['png']) #set of allowed file extensions
+ALLOWED_EXTENSIONS=set(['png', 'jpg']) #set of allowed file extensions
 
 app=Flask(__name__)
 app.config['UPLOAD_FOLDER']=UPLOAD_FOLDER
