@@ -46,8 +46,7 @@ def upload_file():
 	      <input type=submit value=Upload>
 	    </form>
 	'''
-def showfile():
-
+#def showfile():
 if __name__ == '__main__':
 	app.secret_key = 'aasdfsadfsadfsadf';
 	app.config['SESSION_TYPE'] = 'filesystem';
