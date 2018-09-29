@@ -2,9 +2,11 @@ import os
 from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER=os.path.dirname(os.path.realpath(__file__))+'/apload_folder' #Directory to store files
+UPLOAD_FOLDER='./upload_folder' #Directory to store files
 
-ALLOWED_EXTENSIONS=set(['png', 'jpg']) #set of allowed file extensions
+ALLOWED_EXTENSIONS=set(['png','tif','jpg','gif']) #set of allowed file extensions
+
+#### LEARN RELATIVE vs ABSOLUTE paths
 
 app=Flask(__name__)
 app.config['UPLOAD_FOLDER']=UPLOAD_FOLDER
@@ -38,12 +40,14 @@ def upload_file():
 	return '''
 	<!doctype html>
 	    <title>Receipt Scanner</title>
-	    <h1>Aploading pictures</h1>
+	    <h1>Uploading pictures</h1>
 	    <form method=post enctype=multipart/form-data>
 	      <input type=file name=file>
 	      <input type=submit value=Upload>
 	    </form>
 	'''
+def showfile():
+
 if __name__ == '__main__':
 	app.secret_key = 'aasdfsadfsadfsadf';
 	app.config['SESSION_TYPE'] = 'filesystem';
