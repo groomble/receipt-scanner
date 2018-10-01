@@ -6,6 +6,7 @@ Group Members:
 Nathan Hodgson,
 Jules Bibonimana,
 Noah Cowie
+Christian Joachim
 
 
 ### FOLDERS
