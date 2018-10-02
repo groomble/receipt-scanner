@@ -1,0 +1,101 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{graphicx}
+
+\newcommand{\customendpoint}[4]{\bigbreak {\Large\textbf{#1}(#2)}\\%
+\begin{tabular}{p{8cm}|p{8cm}}\textit{Returns: #3}&\texttt{Method: #4}\end{tabular}\\}
+\begin{document}
+\begin{center}
+	\LARGE
+\textbf{API Specification And Help}\\2018-10-01\\Revision 1.0\\Receipt Scanner App\\Noah Cowie\end{center}
+\par
+\customendpoint{login}{username:\textit{string}, password:\textit{string}}{either 
+redirect (307) to login.html if unsuccessful or to app.html if successful,
+set cookie (receipt-user-token) on successful return.}{GET (form encoded)}.
+To implement this correctly, use the following resources:\\
+\url{https://stackoverflow.com/questions/11556958/}
+note: you will use a GET method, not a POST, unlike this example.\\
+\url{https://www.tutorialspoint.com/flask/flask_cookies.htm}\\
+For now, set the cooke \texttt{receipt-user-token} to \texttt{xxxxxxxx}.
+\\\url{https://www.w3schools.com/html/html_forms.asp}\\
+\textbf{Frontend: Christian. Backend: Jules}\\
+Jules: make a simple HTML document if you need something to test against. Just
+serve it using the following example:\\
+\url{https://stackoverflow.com/questions/20646822/}\\
+
+\customendpoint{submitphoto}{time:\textit{unix timestamp}, photo:\textit{file/photo}}
+{either 200 good on successful upload, 400 forbidden on bad request, or 401
+unauthorized if the cookie is not set}{POST (form encoded)}
+Resources:\\
+\url{http://flask.pocoo.org/docs/0.12/patterns/fileuploads/}\\
+Note that we do not want to save them to disk, and so do not need most
+of this tutorial. Instead, just log the name of the file, to demonstrate you
+received it.\\
+\url{https://www.tutorialspoint.com/flask/flask_cookies.htm}\\
+Make sure the cookie \texttt{receipt-user-token} is set! for now, 
+ignore the contents. Note that to ensure this works correctly, you
+can click on the 'i' in the URL bar in FireFox, then choose 
+'clear cookies and browsing data'.
+\\\url{https://www.w3schools.com/html/html_forms.asp}\\
+\textbf{Frontend: Unassigned. Backend: Jules}\\
+
+\customendpoint{getreqs}{\textit{\tiny none}}
+{a comma-separated list of pairs of recommendations or 401 if bad cookie. 
+See description.}{GET}
+\url{https://www.tutorialspoint.com/flask/flask_cookies.htm}\\
+This must read the cookie \texttt{receipt-user-token} (ignore the contents
+for now) and if it is not present, send a 401.\\
+The response body should be text and look like this:
+\\\texttt{
+	more, greenbeans\\
+	less, soda\\
+	less, pizza\\
+	more, apple juice\\
+	same, peaches\\
+	same, pears\\
+	}
+Each line should have one of \{more, less, same\} followed by a comma
+and a space, then the food item that is being suggested (or not) and a newline.\\
+There should be fewer than 10 and more than 1 suggestion.\\
+The client can interpret these messages to produce bubbly user-facing messages.\\
+For now, just return the example list.
+Returning text is done by just doing \texttt{return "hello world!";} or
+by making a variable and building your string in it, then returning the
+variable. I recommend the second one.\\
+\textbf{Frontend: Unassigned. Backend: Jules}\\
+
+\section*{Helpful Information}
+\begin{enumerate}
+	\item[] \textbf{A couple resources for all endpoints:}\\
+	\item To print a console message from inside Flask, use
+		\texttt{app.logger.warn("message here"}\\
+	\item To return an error code of some description, use
+		\texttt{abort(401);} (for error 401)\\
+	\item To return a redirect, use 
+		\texttt{return redirect("/url.here.html");}\\
+	\item To run your code (it doesn't work until it's running correctly!):
+		\url{http://flask.pocoo.org/docs/0.12/quickstart/}\\
+\end{enumerate}
+\par
+\begin{enumerate}
+	\item[] \textbf{A couple general notes:}\\
+	\item You will need to test your code on a machine with Flask. All of the
+		machines in the CS lab have it. Make sure you are comfortable with running Flask.\\
+	\item Code is only done when (1) it runs, (2) you have tested it and (3) it is pushed
+		to either the local server or the github repository.\\
+	\item Good commit messages start with a specific, active verb, name the WHY, and are
+		less than 50 characters.\\
+	 NEVER: \texttt{Changed some things. Edited file helloworld.html. I love long commits.}\\
+	 BETTER: \texttt{Fix bug causing random login failure}\\
+	 ALSO GOOD: \texttt{Make login page buttons less blocky}\\
+	 Further reading: \url{https://chris.beams.io/posts/git-commit/}\\
+	\item Commit often. One change per commit, not \texttt{finished scrum 1}.\\
+	\item Always \texttt{git pull} before starting work -- make sure you're up-to-date!\\
+	\item Confused by git? \url{http://rogerdudler.github.io/git-guide/}\\
+	\item Google problems! If you use code from an example, make sure to cite it using
+		a comment (Python comments start with \texttt{\#}).\\
+\end{enumerate}
+\end{document}
