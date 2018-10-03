@@ -24,19 +24,20 @@ def upload_file():
 		#check for file part for the post method
 		if 'file' not in request.files:
 			#return ('No file part')
-			return redirect(request.url)
+			return redirect("/frontEnd/main.html")
 		file=request.files['file']
 		#if the user doesn't select the file, the browser can 
 		#submit an empty part without a filename
 		if file.filename=='':
 			#return ('No selected file')
-			return redirect(request.url)
+			return redirect("/frontEnd/main.html")
 		app.logger.warn('is good filename');
 		if file and allowed_file(file.filename):
 			app.logger.warn('uploaded file');
 			filename=secure_filename(file.filename)
 			file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
-			return redirect(url_for('upload_file',filename=filename))
+			#return redirect(url_for('upload_file',filename=filename))
+			return redirect("/frontEnd/main.html")
 	return '''
 	<!doctype html>
 	    <title>Receipt Scanner</title>
