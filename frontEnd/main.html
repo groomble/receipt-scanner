@@ -30,7 +30,6 @@
         margin: auto;
         -webkit-appearance: none;
         -moz-appearance: none;
-        appearance: none;
       }
       .uploadButton:hover {
         background-color: #1aba24;
@@ -103,7 +102,7 @@
           <form method=post enctype=multipart/form-data id=imgform action="/receipt-scanner" target=invisframe>
               <input id="hidup" style='display:none' type="file" onchange="document.getElementById('imgform').submit()" name=file>
               </input>
-              <button onclick='document.getElementById("hidup").click()' class=uploadButton>Upload Photo</button>
+              <button onclick='document.getElementById("hidup").click();' class=uploadButton>Upload Photo</button>
             </form>
             <iframe style="display:none" name=invisframe ></iframe> <!-- avoid whole redirect mess -->
       </div>
