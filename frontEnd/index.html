@@ -125,24 +125,24 @@
     </div>
     <div class="container" style="margin-top: 13vh">
       <a href="signup.html" style="text-decoration: none; color: black">
-        <div class="col-md-4 features" id="health">
-          <img src="images/health.png" class="img-responsive" id="featureImage" style="height: 100px; margin: auto">
+        <div class="col-md-4 features" id="health" onmouseover="rollover(this);" onmouseout="mouseOut(this);">
+          <img src="images/health.png" class="img-responsive" id="healthImage" style="height: 100px; margin: auto">
           <h4 style="text-align: center; margin-top: 30px">Achieve Fitness Goals</h4>
           <p class="featureDescription" style="text-align: center">Are you dissatisfied with your results at the gym?
           According to the Huffington Post, weight loss (or muscle gain) is “...generally 75 percent diet and 25 percent
           exercise”. At Nutrove, we have made it our goal to cover that 75 percent for you, all you have to do is find your
           way to the gym. Eating clean and achieving goals has never been easier. </p>
         </div>
-        <div class="col-md-4 features" id="design">
-          <img src="images/design.png" class="img-responsive" id="featureImage" style="height: 100px; margin: auto">
+        <div class="col-md-4 features" id="design" onmouseover="rollover(this);" onmouseout="mouseOut(this);">
+          <img src="images/design.png" class="img-responsive" id="designImage" style="height: 100px; margin: auto">
           <h4 style="text-align: center; margin-top: 30px">Intuitive Design</h4>
           <p class="featureDescription" style="text-align: center">No clutter, no unnecessary pop ups or ads, we have
           designed Nutrove to maximize efficiency and save you time. With a dynamic user interface, our application
           will work beautifully on screens of all sizes. Uploading images is as easy as the click of a button. But
           best of all? Nutrove is 100% <i>free</i>, with no trials or future payments. </p>
         </div>
-        <div class="col-md-4 features" id="advancedAI">
-          <img src="images/advancedAI.png" class="img-responsive" id="featureImage" style="height: 100px; margin: auto">
+        <div class="col-md-4 features" id="advancedAI" onmouseover="rollover(this);" onmouseout="mouseOut(this);">
+          <img src="images/advancedAI.png" class="img-responsive" id="advancedAIImage" style="height: 100px; margin: auto">
           <h4 style="text-align: center; margin-top: 30px">Advanced AI</h4>
           <p class="featureDescription" style="text-align: center">By testing complex machine learning algorithms and
           huge datasets, we have fine-tuned Nutrove to work perfectly for <i>you</i>. Every user is given their own
@@ -154,29 +154,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <script>
-      function mouseOverImage() {
-        
+      function rollover(image) {
+        document.getElementById(image.id + "Image").src = "images/" + image.id + "green.png";
       }
-      function mouseOutImage() {
-        if (document.getElementById("featureImage").src == "images/healthgreen.png") {
-          document.getElementById("featureImage").src = "images/health.png";
-        }
-        else if (document.getElementById("featureImage").src == "images/designgreen.png") {
-          document.getElementById("featureImage").src = "images/design.png";
-        }
-        else if (document.getElementById("featureImage").src == "images/advancedAIgreen.png") {
-          document.getElementById("featureImage").src = "images/advancedAI.png";
-        }
+      function mouseOut(image) {
+        document.getElementById(image.id + "Image").src = "images/" + image.id +".png";
       }
-      var health = document.getElementById("health");
-      var design = document.getElementById("design");
-      var advancedAI = document.getElementById("advancedAI");
-      //document.getElementById("features1").addEventListener('mouseover', mouseOverImage);
-      //document.getElementById("features1").addEventListener('mouseout', mouseOutImage);
-      design.addEventListener('mouseover', mouseOverImage);
-      design.addEventListener('mouseout', mouseOutImage);
-      //document.getElementById("features3").addEventListener('mouseover', mouseOverImage);
-      //document.getElementById("features3").addEventListener('mouseout', mouseOutImage);
     </script>
   </body>
 </html>
