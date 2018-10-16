@@ -9,17 +9,42 @@
     <title>Nutrove</title>
     <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+      
+      @-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+      @-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+      @keyframes fadeIn {
+        from {
+          opacity:0;
+          transform: translateY(-5rem);
+        } to  {
+          opacity:1;
+          transform: translateY(0);
+          }
+        }
+      
       @font-face {
         font-family: "Hero Light";
         src: url("Hero Font/Hero Light.otf") format("truetype");
       }
       h1.heroFont { 
         font-family: "Hero Light", Verdana, Tahoma;
+        opacity:0;  /* make things invisible upon start */
+        -webkit-animation:fadeIn ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+        -moz-animation:fadeIn ease-in 1;
+        animation:fadeIn ease-in 1;
+      
+        -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+        -moz-animation-fill-mode:forwards;
+        animation-fill-mode:forwards;
+      
+        -webkit-animation-duration:1.5s;
+        -moz-animation-duration:1.5s;
+        animation-duration:1.5s;
       }
       a.navbar-brand:hover span {
         color: #11d81d !important;
       }
-      .uploadButton {
+      #uploadButton {
         background-color: white;
         border: 2px solid #1aba24;
         color: #1aba24;
@@ -29,9 +54,17 @@
         transition: ease 0.1s;
         margin: auto;
         -webkit-appearance: none;
-        -moz-appearance: none;
+        opacity: 0;
       }
-      .uploadButton:hover {
+      #noReceipts {
+         text-align: center;
+         background-color: #ffb9b5;
+         border-radius: 10px;
+         padding: 10px;
+         border: 1px solid #919191;
+         opacity: 0;
+      }
+      #uploadButton:hover {
         background-color: #1aba24;
         color: white;
         border: 2px solid black;
@@ -83,14 +116,14 @@
     </nav>
     <div class="container">
       <div class="col-md-2"></div>
-      <div class="col-md-8" style="text-align: center">
+      <div class="col-md-8" style="text-align: center;">
         <h1 style="font-size: 40pt" class="heroFont">Welcome back!</h1>
       </div>
       <div class="col-md-2"></div>
     </div>
     <div class="container" style="margin-top: 8vh">
       <div class="col-md-2"></div>
-      <div class="col-md-8" style="text-align: center; background-color: #ffb9b5; border-radius: 10px; padding: 10px; border: 1px solid #919191">
+      <div class="col-md-8 noReceipts" id="noReceipts">
         <p>You haven't uploaded any receipts yet. To get started with Nutrove, click the "Upload" button
         below and select an image from your device!</p>
       </div>
@@ -102,7 +135,7 @@
           <form method=post enctype=multipart/form-data id=imgform action="/receipt-scanner" target=invisframe>
               <input id="hidup" style='display:none' type="file" onchange="document.getElementById('imgform').submit()" name=file>
               </input>
-              <button onclick='document.getElementById("hidup").click();' class=uploadButton>Upload Photo</button>
+              <button onclick='document.getElementById("hidup").click();' class=uploadButton id=uploadButton>Upload Photo</button>
             </form>
             <iframe style="display:none" name=invisframe ></iframe> <!-- avoid whole redirect mess -->
       </div>
@@ -111,5 +144,21 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script>
+      setTimeout(function(){
+        var receipts = document.getElementById("noReceipts");
+        var uploadButton = document.getElementById("uploadButton");
+        showElement();
+        function showElement() {
+          var k = window.setInterval(function() {
+            if (receipts.style.opacity >= 1) {
+              clearInterval(k);
+            } else {
+              receipts.style.opacity -= '-0.05';
+              uploadButton.style.opacity -= '-0.05';
+            }}, 30);
+        }
+      }, 1500);
+    </script>
   </body>
 </html>
