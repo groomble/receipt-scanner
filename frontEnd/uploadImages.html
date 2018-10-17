@@ -91,12 +91,13 @@
         <div class="col-md-2"></div>
         <div class="col-md-8" id="box">
           <form action=testpoint method=POST target=invisframe>
-            <h1 class="heroFont">Upload Images</h1>
+            <h1 class="heroFont" id="heroFont">Upload Images</h1>
             <img src="images/imagePreview.png" class="img-responsive" id="imagePreview" style="height: 30vh; margin: auto">
             <div class="form-group" style="margin-top: 2vh; text-align: center">
               <script>
                 function presubmit() {
                   document.getElementById('timestamp').value = new Date().toLocaleString();
+                  document.getElementById('heroFont').style.display = "none";
                 }
               </script>
               <input type="text" name="timestamp" id="timestamp" style="display: none" id="timestamp"></input>
