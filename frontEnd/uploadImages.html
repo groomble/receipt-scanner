@@ -90,11 +90,23 @@
     <div class="container">
         <div class="col-md-2"></div>
         <div class="col-md-8" id="box">
+          <form action=testpoint method=POST target=invisframe>
             <h1 class="heroFont">Upload Images</h1>
             <img src="images/imagePreview.png" class="img-responsive" id="imagePreview" style="height: 30vh; margin: auto">
             <div class="form-group" style="margin-top: 2vh; text-align: center">
-              <input type="file" class="form-control-file" name="Choose file" style="margin: auto; text-align: center; padding: 10px">
-              <button onclick='document.getElementById("hidup").click();' class=uploadButton id=uploadButton>Upload Photo</button>
+              <script>
+                function presubmit() {
+                  document.getElementById('timestamp').value = new Date().toLocaleString();
+                }
+              </script>
+              <input type="text" name="timestamp" id="timestamp" style="display: none" id="timestamp"></input>
+              <input type="file" class="form-control-file" name="Choose file"
+                     onchange="document.getElementById('imagePreview').src = window.URL.createObjectURL(this.files[0])"
+                     style="margin: auto; text-align: center; padding: 10px">
+              </input>
+              <input onclick="presubmit();" type=submit class=uploadButton id=uploadButton value="Upload Photo"></input>
+              <iframe style="display:none" name=invisframe ></iframe> <!-- avoid whole redirect mess -->
+              </form>
             </div>
         </div>
         <div class="col-md-2"></div>
