@@ -8,6 +8,14 @@
     <title>Nutrove</title>
     <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+      @font-face {
+        font-family: "Hero Light";
+        src: url("Hero Font/Hero Light.otf") format("truetype");
+      }
+      h1.heroFont { 
+        font-family: "Hero Light", Verdana, Tahoma;
+        text-align: center;
+      }
       a.navbar-brand:hover span {
         color: #11d81d !important;
       }
@@ -20,15 +28,34 @@
 
       }
       
+      .imagePreview {
+        height: 100px;
+      }
     
     body {
         background: #f5f6f5;
         color: #333;
     }
-    
+    #uploadButton {
+        background-color: white;
+        border: 1px solid #1aba24;
+        color: #1aba24;
+        font-size: 12pt;
+        border-radius: 10px;
+        padding: 15px;
+        margin-top: 5vh;
+        -webkit-appearance: none;
+      }
+    #uploadButton:hover {
+        background-color: #1aba24;
+        color: black;
+        border: 1px solid black;
+      }
     div#box {
         background-color: white;
         padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0px 5px 5px #aaaaaa;
     }
     
     </style>
@@ -63,7 +90,12 @@
     <div class="container">
         <div class="col-md-2"></div>
         <div class="col-md-8" id="box">
-            
+            <h1 class="heroFont">Upload Images</h1>
+            <img src="images/imagePreview.png" class="img-responsive" id="imagePreview" style="height: 30vh; margin: auto">
+            <div class="form-group" style="margin-top: 2vh; text-align: center">
+              <input type="file" class="form-control-file" name="Choose file" style="margin: auto; text-align: center; padding: 10px">
+              <button onclick='document.getElementById("hidup").click();' class=uploadButton id=uploadButton>Upload Photo</button>
+            </div>
         </div>
         <div class="col-md-2"></div>
     </div>
