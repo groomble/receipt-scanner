@@ -135,6 +135,7 @@
           <form method=post enctype=multipart/form-data id=imgform action="/receipt-scanner" target=invisframe>
               <input id="hidup" style='display:none' type="file" onchange="document.getElementById('imgform').submit()" name=file>
               </input>
+              <input type="text" name="timestamp" style="display: none" id="timestamp"></input>
               <button onclick='document.getElementById("hidup").click();' class=uploadButton id=uploadButton>Upload Photo</button>
             </form>
             <iframe style="display:none" name=invisframe ></iframe> <!-- avoid whole redirect mess -->
