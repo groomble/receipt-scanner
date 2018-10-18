@@ -1,0 +1,15 @@
+
+Types of Databases suitable for Nutrove
+
+** Both you do not need to specify your cluster size, and are in the SciKit-Learn python Library** 
+
+1) Affinity Propagation
+
+http://scikit-learn.org/stable/modules/clustering.html#affinity-propagation
+
+
+2)Hierarchical Clustering
+
+https://stackabuse.com/hierarchical-clustering-with-python-and-scikit-learn/
+
+
