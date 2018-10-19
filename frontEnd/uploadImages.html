@@ -12,7 +12,7 @@
         font-family: "Hero Light";
         src: url("Hero Font/Hero Light.otf") format("truetype");
       }
-      h1.heroFont { 
+      .heroFont { 
         font-family: "Hero Light", Verdana, Tahoma;
         text-align: center;
       }
@@ -95,15 +95,32 @@
           <form action=testpoint method=POST target=invisframe>
             <h1 class="heroFont" id="heroFont">Upload Images</h1>
             <img src="images/imagePreview.png" class="img-responsive" id="imagePreview" style="height: 30vh; margin: auto">
+            <h2 class="heroFont" id="success" style="display: none">Image Successfully Uploaded!</h2>
             <div class="form-group" style="margin-top: 2vh; text-align: center">
               <script>
                 function presubmit() {
                   document.getElementById('timestamp').value = new Date().toLocaleString();
+                  document.getElementById('imagePreview').src = "images/success.png";
                   document.getElementById('heroFont').style.display = "none";
+                  document.getElementById('success').style.display = "block";
+                  document.getElementById('uploadButton').style.display = "none";
+                  document.getElementById('chooseFile').style.display = "none";
+                  document.getElementById('chooseAnotherFile').style.display = "block";
+                }
+                function submitAgain() {
+                  document.getElementById('imagePreview').src = "images/imagePreview.png";
+                  document.getElementById('heroFont').style.display = "block";
+                  document.getElementById('success').style.display = "none";
+                  document.getElementById('uploadButton').style.display = "inline";
+                  document.getElementById('chooseFile').style.display = "block";
+                  document.getElementById('chooseFile').value = "";
+                  document.getElementById('chooseAnotherFile').style.display = "none";
                 }
               </script>
               <input type="text" name="timestamp" id="timestamp" style="display: none" id="timestamp"></input>
-              <input type="file" class="form-control-file" name="Choose file"
+              <button style="margin: auto; text-align: center; display: none; border-radius: 5px; margin-top: 5vh" id="chooseAnotherFile"
+                      onclick="submitAgain()">Choose Another File</button>
+              <input type="file" class="form-control-file" name="Choose file" id="chooseFile"
                      onchange="document.getElementById('imagePreview').src = window.URL.createObjectURL(this.files[0])"
                      style="margin: auto; text-align: center; padding: 10px">
               </input>
