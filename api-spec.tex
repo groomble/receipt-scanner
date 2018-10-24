@@ -10,11 +10,11 @@
 \begin{document}
 \begin{center}
 	\LARGE
-\textbf{API Specification And Help}\\2018-10-01\\Revision 1.0\\Receipt Scanner App\\Noah Cowie\end{center}
+\textbf{API Specification And Help}\\2018-10-22\\Revision 1.1\\Receipt Scanner App\\Noah Cowie\end{center}
 \par
 \customendpoint{login}{username:\textit{string}, password:\textit{string}}{either 
-redirect (307) to login.html if unsuccessful or to app.html if successful,
-set cookie (receipt-user-token) on successful return.}{GET (form encoded)}.
+redirect (307) to index.html if unsuccessful or to main.html if successful,
+set cookie (receipt-user-token) on successful return.}{POST}.
 To implement this correctly, use the following resources:\\
 \url{https://stackoverflow.com/questions/11556958/}
 note: you will use a GET method, not a POST, unlike this example.\\
@@ -28,7 +28,7 @@ serve it using the following example:\\
 
 \customendpoint{submitphoto}{time:\textit{unix timestamp}, photo:\textit{file/photo}}
 {either 200 good on successful upload, 400 forbidden on bad request, or 401
-unauthorized if the cookie is not set}{POST (form encoded)}
+unauthorized if the cookie is not set}{POST}
 Resources:\\
 \url{http://flask.pocoo.org/docs/0.12/patterns/fileuploads/}\\
 Note that we do not want to save them to disk, and so do not need most
@@ -66,6 +66,10 @@ Returning text is done by just doing \texttt{return "hello world!";} or
 by making a variable and building your string in it, then returning the
 variable. I recommend the second one.\\
 \textbf{Frontend: Unassigned. Backend: Jules}\\
+
+\customendpoint{signup}{username: \textit{string}, password: \textit{string}, email: \textit{string}}
+{307 to signup.html on failure, 307 to main.html on success.
+Must set the receipt-user-token to the new user's new token.}{GET}
 
 \section*{Helpful Information}
 \begin{enumerate}
