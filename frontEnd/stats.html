@@ -53,8 +53,116 @@
             </ul>
         </div>
     </div>
-    </nav>  
+    </nav>
+      <h1 class="heroFont" id="heroFont" style="text-align: center; margin-bottom: 8vh">Macronutrient Information</h1>
+      <div class="col-md-4">
+        <h3 style="text-align: right">Recommended Daily Values</h2>
+        <h4 class="heroFont" id="calories" style="font-weight: 400; margin-top: 5vh; text-align: right">Calories: <span id="firstCal"></span><span id="secondCal"></span></h4>
+        <h4 class="heroFont" id="carbs" style="font-weight: 400; text-align: right">Carbohydrates: <span id="firstCarb"></span><span id="secondCarb"></span></h4>
+        <h4 class="heroFont" id="protein" style="font-weight: 400; text-align: right">Protein: <span id="firstProtein"></span><span id="secondProtein"></span></h4>
+        <h4 class="heroFont" id="fat" style="font-weight: 400; text-align: right">Total Fat: <span id="firstFat"></span><span id="secondFat"></span></h4>
+        
+        <script>
+          macros();
+          function macros() {
+            var calories = 2000;
+            var carbs = 250;
+            var protein = 190;
+            var fat = 90;
+            var recCals = 2321;
+            var recCarbs = 230;
+            var recProtein = 195;
+            var recFat = 69;
+            
+            document.getElementById('firstCal').innerHTML = calories;
+            document.getElementById('secondCal').innerHTML = "/" + recCals;
+            document.getElementById('firstCarb').innerHTML = carbs;
+            document.getElementById('secondCarb').innerHTML = "/" + recCarbs;
+            document.getElementById('firstProtein').innerHTML = protein;
+            document.getElementById('secondProtein').innerHTML = "/" + recProtein;
+            document.getElementById('firstFat').innerHTML = fat;
+            document.getElementById('secondFat').innerHTML = "/" + recFat;
+            
+            // ======================= CALORIES ==============================
+            if (calories > (recCals+200)) {
+              document.getElementById('firstCal').style.color = "red";
+            }
+            else if (calories < (recCals-200)) {
+              document.getElementById('firstCal').style.color = "orange";
+            }
+            else {
+              document.getElementById('firstCal').style.color = "green";
+            }
+            //================================================================
+            
+            // ======================= CARBS ==============================
+            if (carbs > (recCarbs+30)) {
+              document.getElementById('firstCarb').style.color = "red";
+            }
+            else if (carbs < (recCarbs-30)) {
+              document.getElementById('firstCarb').style.color = "orange";
+            }
+            else {
+              document.getElementById('firstCarb').style.color = "green";
+            }
+            //================================================================
+            
+            // ======================= PROTEIN ==============================
+            if (protein > (recProtein+30)) {
+              document.getElementById('firstProtein').style.color = "red";
+            }
+            else if (protein < (recProtein-30)) {
+              document.getElementById('firstProtein').style.color = "orange";
+            }
+            else {
+              document.getElementById('firstProtein').style.color = "green";
+            }
+            //================================================================
+            
+            // ======================= FAT ==============================
+            if (fat > (recFat+10)) {
+              document.getElementById('firstFat').style.color = "red";
+            }
+            else if (protein < (recProtein-30)) {
+              document.getElementById('firstFat').style.color = "orange";
+            }
+            else {
+              document.getElementById('firstFat').style.color = "green";
+            }
+            //================================================================
+          }
+        </script>
+        
+      </div>
+      <div class="col-md-8">
+        <canvas id="doughnutChart"></canvas>
+      </div>
+
+      
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="MDB-Free_4.5.13/js/mdb.js"></script>
+    
+    <script>
+     //doughnut
+      var ctxD = document.getElementById("doughnutChart").getContext('2d');
+      var myLineChart = new Chart(ctxD, {
+          type: 'doughnut',
+          data: {
+              labels: ["Carbohydrates", "Protein", "Sodium", "Cholesterol", "Total Fat"],
+              datasets: [
+                  {
+                      data: [300, 100, 160, 0, 50],
+                      backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+                      hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+                  }
+              ]
+          },
+          options: {
+              responsive: true
+          }
+      });
+    </script>
   </body>
 </html>
