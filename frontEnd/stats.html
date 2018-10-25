@@ -12,8 +12,11 @@
         font-family: "Hero Light";
         src: url("Hero Font/Hero Light.otf") format("truetype");
       }
-      h1.heroFont { 
+      .heroFont { 
         font-family: "Hero Light", Verdana, Tahoma;
+      }
+      h4.heroFont {
+        font-family: "Hero", Verdana, Tahoma;
       }
       a.navbar-brand:hover span {
         color: #11d81d !important;
@@ -55,7 +58,8 @@
     </div>
     </nav>
       <h1 class="heroFont" id="heroFont" style="text-align: center; margin-bottom: 8vh">Macronutrient Information</h1>
-      <div class="col-md-4">
+      <div class="col-md-2"></div>
+      <div class="col-md-3">
         <h3 style="text-align: right">Recommended Daily Values</h2>
         <h4 class="heroFont" id="calories" style="font-weight: 400; margin-top: 5vh; text-align: right">Calories: <span id="firstCal"></span><span id="secondCal"></span></h4>
         <h4 class="heroFont" id="carbs" style="font-weight: 400; text-align: right">Carbohydrates: <span id="firstCarb"></span><span id="secondCarb"></span></h4>
@@ -135,9 +139,11 @@
         </script>
         
       </div>
-      <div class="col-md-8">
+      <div class="col-md-6">
         <canvas id="doughnutChart"></canvas>
       </div>
+      <div class="col-md-1"></div>
+      
 
       
     
