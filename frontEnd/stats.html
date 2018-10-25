@@ -24,7 +24,9 @@
       /* General sizing */
       /* mobile fix */
       @media (max-width: 768px) {
-
+        #chart {
+          margin-top: 10vh;
+        }
       }
       @media (max-width: 991px) {
 
@@ -57,92 +59,97 @@
         </div>
     </div>
     </nav>
-      <h1 class="heroFont" id="heroFont" style="text-align: center; margin-bottom: 8vh">Macronutrient Information</h1>
-      <div class="col-md-2"></div>
-      <div class="col-md-3">
-        <h3 style="text-align: right">Recommended Daily Values</h2>
-        <h4 class="heroFont" id="calories" style="font-weight: 400; margin-top: 5vh; text-align: right">Calories: <span id="firstCal"></span><span id="secondCal"></span></h4>
-        <h4 class="heroFont" id="carbs" style="font-weight: 400; text-align: right">Carbohydrates: <span id="firstCarb"></span><span id="secondCarb"></span></h4>
-        <h4 class="heroFont" id="protein" style="font-weight: 400; text-align: right">Protein: <span id="firstProtein"></span><span id="secondProtein"></span></h4>
-        <h4 class="heroFont" id="fat" style="font-weight: 400; text-align: right">Total Fat: <span id="firstFat"></span><span id="secondFat"></span></h4>
-        
-        <script>
-          var calories = 2000;
-          var carbs = 250;
-          var protein = 190;
-          var fat = 90;
-          var recCals = 2321;
-          var recCarbs = 230;
-          var recProtein = 195;
-          var recFat = 69;
-          macros();
-          function macros() {
-            
-            
-            document.getElementById('firstCal').innerHTML = calories;
-            document.getElementById('secondCal').innerHTML = "/" + recCals;
-            document.getElementById('firstCarb').innerHTML = carbs;
-            document.getElementById('secondCarb').innerHTML = "/" + recCarbs;
-            document.getElementById('firstProtein').innerHTML = protein;
-            document.getElementById('secondProtein').innerHTML = "/" + recProtein;
-            document.getElementById('firstFat').innerHTML = fat;
-            document.getElementById('secondFat').innerHTML = "/" + recFat;
-            
-            // ======================= CALORIES ==============================
-            if (calories > (recCals+200)) {
-              document.getElementById('firstCal').style.color = "red";
+      
+      <div class="container" id="macroInfo">
+        <h1 class="heroFont" id="heroFont" style="text-align: center; margin-bottom: 8vh">Macronutrient Information</h1>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+          <h3 style="text-align: left">Recommended Daily Values</h2>
+          <h4 class="heroFont" id="calories" style="font-weight: 400; margin-top: 5vh; text-align: left">Calories: <span id="firstCal"></span><span id="secondCal"></span></h4>
+          <h4 class="heroFont" id="carbs" style="font-weight: 400; text-align: left">Carbohydrates: <span id="firstCarb"></span><span id="secondCarb"></span></h4>
+          <h4 class="heroFont" id="protein" style="font-weight: 400; text-align: left">Protein: <span id="firstProtein"></span><span id="secondProtein"></span></h4>
+          <h4 class="heroFont" id="fat" style="font-weight: 400; text-align: left">Total Fat: <span id="firstFat"></span><span id="secondFat"></span></h4>
+          
+          <script>
+            var calories = 2000;
+            var carbs = 250;
+            var protein = 190;
+            var fat = 90;
+            var recCals = 2321;
+            var recCarbs = 230;
+            var recProtein = 195;
+            var recFat = 69;
+            macros();
+            function macros() {
+              
+              
+              document.getElementById('firstCal').innerHTML = calories;
+              document.getElementById('secondCal').innerHTML = "/" + recCals;
+              document.getElementById('firstCarb').innerHTML = carbs;
+              document.getElementById('secondCarb').innerHTML = "/" + recCarbs;
+              document.getElementById('firstProtein').innerHTML = protein;
+              document.getElementById('secondProtein').innerHTML = "/" + recProtein;
+              document.getElementById('firstFat').innerHTML = fat;
+              document.getElementById('secondFat').innerHTML = "/" + recFat;
+              
+              // ======================= CALORIES ==============================
+              if (calories > (recCals+200)) {
+                document.getElementById('firstCal').style.color = "red";
+              }
+              else if (calories < (recCals-200)) {
+                document.getElementById('firstCal').style.color = "orange";
+              }
+              else {
+                document.getElementById('firstCal').style.color = "green";
+              }
+              //================================================================
+              
+              // ======================= CARBS ==============================
+              if (carbs > (recCarbs+30)) {
+                document.getElementById('firstCarb').style.color = "red";
+              }
+              else if (carbs < (recCarbs-30)) {
+                document.getElementById('firstCarb').style.color = "orange";
+              }
+              else {
+                document.getElementById('firstCarb').style.color = "green";
+              }
+              //================================================================
+              
+              // ======================= PROTEIN ==============================
+              if (protein > (recProtein+20)) {
+                document.getElementById('firstProtein').style.color = "red";
+              }
+              else if (protein < (recProtein-20)) {
+                document.getElementById('firstProtein').style.color = "orange";
+              }
+              else {
+                document.getElementById('firstProtein').style.color = "green";
+              }
+              //================================================================
+              
+              // ======================= FAT ==============================
+              if (fat > (recFat+10)) {
+                document.getElementById('firstFat').style.color = "red";
+              }
+              else if (protein < (recProtein-30)) {
+                document.getElementById('firstFat').style.color = "orange";
+              }
+              else {
+                document.getElementById('firstFat').style.color = "green";
+              }
+              //================================================================
             }
-            else if (calories < (recCals-200)) {
-              document.getElementById('firstCal').style.color = "orange";
-            }
-            else {
-              document.getElementById('firstCal').style.color = "green";
-            }
-            //================================================================
-            
-            // ======================= CARBS ==============================
-            if (carbs > (recCarbs+30)) {
-              document.getElementById('firstCarb').style.color = "red";
-            }
-            else if (carbs < (recCarbs-30)) {
-              document.getElementById('firstCarb').style.color = "orange";
-            }
-            else {
-              document.getElementById('firstCarb').style.color = "green";
-            }
-            //================================================================
-            
-            // ======================= PROTEIN ==============================
-            if (protein > (recProtein+20)) {
-              document.getElementById('firstProtein').style.color = "red";
-            }
-            else if (protein < (recProtein-20)) {
-              document.getElementById('firstProtein').style.color = "orange";
-            }
-            else {
-              document.getElementById('firstProtein').style.color = "green";
-            }
-            //================================================================
-            
-            // ======================= FAT ==============================
-            if (fat > (recFat+10)) {
-              document.getElementById('firstFat').style.color = "red";
-            }
-            else if (protein < (recProtein-30)) {
-              document.getElementById('firstFat').style.color = "orange";
-            }
-            else {
-              document.getElementById('firstFat').style.color = "green";
-            }
-            //================================================================
-          }
-        </script>
-        
+          </script>
+          
+        </div>
+        <div class="col-md-8" id="chart">
+          <canvas id="doughnutChart"></canvas>
+        </div>
       </div>
-      <div class="col-md-6">
-        <canvas id="doughnutChart"></canvas>
+      <div class="container" id="financialInfo" style=" margin-top: 8vh">
+        <h1 class="heroFont" id="heroFont" style="text-align: center;">Financial</h1>
       </div>
-      <div class="col-md-1"></div>
       
 
       
@@ -154,7 +161,7 @@
     <script>
      //doughnut
       var ctxD = document.getElementById("doughnutChart").getContext('2d');
-      var myLineChart = new Chart(ctxD, {
+      new Chart(ctxD, {
           type: 'doughnut',
           data: {
               labels: ["Carbohydrates", "Protein", "Total Fat"],
