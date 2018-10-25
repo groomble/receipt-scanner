@@ -1,0 +1,82 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{graphicx}
+
+\newcommand{\customendpoint}[4]{\bigbreak {\Large\textbf{#1}(#2)}\\%
+\begin{tabular}{p{8cm}|p{8cm}}\textit{Returns: #3}&\texttt{Method: #4}\end{tabular}\\}
+
+\begin{document}
+\textbf{Name:}\\
+\begin{center}
+\textbf{Machine Learning Quiz 1}\\2018-10-23\\Noah Cowie\end{center}
+
+\begin{enumerate}
+	\item Consider the following directory tree:\\
+		\begin{verbatim}
+		receipt-scanner
+		 |- frontEnd
+		 |   |- images
+		 |   |   |- a.jpg
+		 |   |   \- b.jpg
+		 |   |- main.html
+		 |   \- index.html
+		 |- src
+		 |   \- templater.py
+		 \- quiz1.tex
+		 \end{verbatim}
+		 \begin{enumerate}
+			 \item If I want to use \texttt{a.jpg} in 
+				 \texttt{main.html}, what should my
+				 path be?
+				 \vspace{1cm}
+			 \item If I want to use \texttt{quiz1.tex} from
+				 \texttt{templater.py}, what should my
+				 path be?
+				 \vspace{1cm}
+			 \item If I want to use \texttt{index.html} from
+				 \texttt{templater.py}, what should my
+				 path be?
+				 \vspace{1cm}
+			 \item If I want to use \texttt{a.jpg} from
+				 \texttt{templater.py}, what should my
+				 path be?
+				 \vspace{1cm}
+			 \item If I want to use \texttt{a.jpg} from
+				 \texttt{quiz1.tex}, what should my
+				 path be?
+				 \vspace{1cm}
+		 \end{enumerate}
+	 \item Consider the following line from a hypothetical API spec:\\
+		 \customendpoint{ordercoffee}{varietal:\textit{string}, %
+		 espresso:\textit{boolean}}{A coffee order ID number.}{POST}\\
+		 \begin{enumerate}
+			 \item What should the \texttt{form} element be? Write
+				 a simple one, don't worry about formatting or
+				 the input elements (yet).
+				 \vspace{4cm}
+			 \item What should the first input element be?
+				 \vspace{4cm}
+			 \item What should the other input element be?
+				 \vspace{4cm}
+			 \item What should the flask method declaration
+				 look like?
+				 \vspace{4cm}
+			 \item What other form field might I add, and how
+				 would that affect the API spec line?
+				 What would the new input element be?
+				 \vspace{4cm}
+		 \end{enumerate}
+	 \item Write the git command you use to bring yourself up-to-speed:
+		 \vspace{1cm}
+	 \item Write the git commands you use to commit and push your changes to
+		 quiz1.tex, if your terminal is in the receipt-scanner directory.
+		 \vspace{4cm}
+	 \item Write the git commands you use to commit and push your changes to
+		 a.jpg, if your terminal is in the receipt-scanner directory.
+		 \vspace{4cm}
+	 \item Write the git commands you use to commit and push your changes to
+		 quiz1.tex, if your terminal is in the src directory.
+		 \vspace{4cm}
+\end{enumerate}
+\end{document}
