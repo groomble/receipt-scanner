@@ -21,15 +21,36 @@
       a.navbar-brand:hover span {
         color: #11d81d !important;
       }
+      body {
+        background: #f5f6f5;
+    }
       /* General sizing */
       /* mobile fix */
       @media (max-width: 768px) {
+        
+      }
+      @media (max-width: 991px) {
+        #dailyVals {
+          text-align: center !important;
+        }
+        .macros {
+          text-align: center !important;
+        }
         #chart {
           margin-top: 10vh;
         }
-      }
-      @media (max-width: 991px) {
-
+        #avgSpending {
+          text-align: center !important;
+        }
+        #financialChart {
+          margin-top: 10vh;
+        }
+        #financial {
+          margin-top: 15vh !important;
+        }
+        #macronutrients {
+          margin-bottom: 5vh !important;
+        }
       }
     </style>
     <!--[if lt IE 9]>
@@ -38,7 +59,7 @@
     <![endif]-->
   </head>
   <body style="height: 100vh">
-    <nav class="navbar navbar-inverse navbar-static-top" style="margin-bottom: 12vh">
+    <nav class="navbar navbar-inverse navbar-static-top" style="margin-bottom: -1vh">
     <div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -60,15 +81,15 @@
     </div>
     </nav>
       
-      <div class="container" id="macroInfo">
-        <h1 class="heroFont" id="heroFont" style="text-align: center; margin-bottom: 8vh">Macronutrient Information</h1>
+      <div class="container" id="macroInfo" style="background: white">
+        <h1 class="heroFont" id="macronutrients" style="text-align: center; margin-bottom: 8vh; margin-top: 10vh">Macronutrient Information</h1>
         <div class="col-md-1"></div>
         <div class="col-md-3">
-          <h3 style="text-align: left">Recommended Daily Values</h2>
-          <h4 class="heroFont" id="calories" style="font-weight: 400; margin-top: 5vh; text-align: left">Calories: <span id="firstCal"></span><span id="secondCal"></span></h4>
-          <h4 class="heroFont" id="carbs" style="font-weight: 400; text-align: left">Carbohydrates: <span id="firstCarb"></span><span id="secondCarb"></span></h4>
-          <h4 class="heroFont" id="protein" style="font-weight: 400; text-align: left">Protein: <span id="firstProtein"></span><span id="secondProtein"></span></h4>
-          <h4 class="heroFont" id="fat" style="font-weight: 400; text-align: left">Total Fat: <span id="firstFat"></span><span id="secondFat"></span></h4>
+          <h3 id="dailyVals" style="text-align: left">Recommended Daily Values</h2>
+          <h4 class="heroFont macros" id="calories" style="font-weight: 400; margin-top: 5vh; text-align: left">Calories: <span id="firstCal"></span><span id="secondCal"></span></h4>
+          <h4 class="heroFont macros" id="carbs" style="font-weight: 400; text-align: left">Carbohydrates: <span id="firstCarb"></span><span id="secondCarb"></span></h4>
+          <h4 class="heroFont macros" id="protein" style="font-weight: 400; text-align: left">Protein: <span id="firstProtein"></span><span id="secondProtein"></span></h4>
+          <h4 class="heroFont macros" id="fat" style="font-weight: 400; text-align: left">Total Fat: <span id="firstFat"></span><span id="secondFat"></span></h4>
           
           <script>
             var calories = 2000;
@@ -147,11 +168,20 @@
           <canvas id="doughnutChart"></canvas>
         </div>
       </div>
-      <div class="container" id="financialInfo" style=" margin-top: 8vh">
-        <h1 class="heroFont" id="heroFont" style="text-align: center;">Financial</h1>
+      <div class="container" id="financialInfo" style="background: white">
+        <h1 class="heroFont" id="financial" style="text-align: center; margin-top: 10vh; margin-bottom: 8vh">Financial</h1>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+          <h3 id="dailyVals" style="text-align: left">Average Spending Rates</h3>
+          <h4 class="heroFont macros" style="margin-top: 5vh; text-align: left">Weekly: <span style="color: green">$15.57</span></h4>
+          <h4 class="heroFont macros" style="text-align: left">Monthly: <span style="color: green">$62.28</span></h4>
+          <h4 class="heroFont macros" style="text-align: left">Annually: <span style="color: green">$747.36</span></h4>
+        </div>
+        <div class="col-md-7" style="margin-bottom: 10vh" id="financialChart">
+          <canvas id="lineChart"></canvas>
+        </div>
+        <div class="col-md-1"></div>
       </div>
-      
-
       
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -177,6 +207,30 @@
               responsive: true
           }
       });
+      
+      //line
+            var ctxL = document.getElementById("lineChart").getContext('2d');
+            new Chart(ctxL, {
+              type: 'line',
+              data: {
+                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                datasets: [{
+                    label: "Monthly Spending",
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                    backgroundColor: [
+                      'rgba(185, 255, 178, .2)',
+                    ],
+                    borderColor: [
+                      'green',
+                    ],
+                    borderWidth: 2
+                  }
+                ]
+              },
+              options: {
+                responsive: true
+              }
+            });
     </script>
   </body>
 </html>
