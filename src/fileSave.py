@@ -68,7 +68,7 @@ def getData():
 	return ','.join(lastLines)
 @app.route('/login',methods=['GET'])
 def dummyLogin():
-    return redirect('../uploadImages.html')
+    return redirect('/../uploadImages.html')
 
 if __name__ == '__main__':
 	app.config['SESSION_TYPE'] = 'filesystem';
