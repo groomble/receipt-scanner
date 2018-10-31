@@ -20,7 +20,7 @@ def allowed_file(filename):
 	app.logger.warn('extension:\t'+filename.rsplit('.',1)[-1].lower());
 	return '.'in filename and \
 			filename.rsplit('.',1)[-1].lower() in ALLOWED_EXTENSIONS
-@app.route('/',methods=['GET','POST'])
+@app.route('/submitphoto',methods=['GET','POST'])
 
 def upload_file():
 	app.logger.warn('endpoint');
