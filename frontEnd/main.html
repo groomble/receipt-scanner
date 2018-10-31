@@ -92,7 +92,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body style="height: 100vh">
+  <body style="height: 100vh" onload="promptLocation();">
     <nav class="navbar navbar-inverse navbar-static-top" style="margin-bottom: 12vh">
     <div class="container">
 		<div class="navbar-header">
@@ -107,7 +107,7 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
                 <li><a href="uploadImages.html">Upload Images</a></li>
-                <li><a href="#">My Statistics</a></li>
+                <li><a href="stats.html">My Statistics</a></li>
                 <li><a href="#">Settings</a></li>
                 <li><a href="index.html">Log Out</a></li>
             </ul>
@@ -160,6 +160,26 @@
             }}, 30);
         }
       }, 1500);
+      
+      function promptLocation() {
+
+        if (!navigator.geolocation){
+          alert("Geolocation is not supported by your browser");
+          return;
+        } 
+        function success(position) {
+          var latitude  = position.coords.latitude;
+          var longitude = position.coords.longitude;
+          sendCoords(latitude, longitude);
+        }      
+        function error() {
+          alert("Unable to retrieve your location.");
+        }    
+        navigator.geolocation.getCurrentPosition(success, error);
+      }
+      function sendCoords(latitude, longitude) {
+        
+      }
     </script>
   </body>
 </html>
