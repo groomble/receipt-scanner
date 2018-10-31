@@ -6,16 +6,13 @@ date: 9/23/2018
 import os
 from ocr_pipeline import correctReceipt
 from flask import Flask, flash, request, redirect, url_for
-from flask import g
+from flask import session
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER=os.path.dirname(os.path.abspath(__file__))+'/upload_folder' #Directory to store files
 
 ALLOWED_EXTENSIONS=set(['png','tif','jpg','gif']) #set of allowed file extensions
 
-## FORGIVE ME: global to hold state.
-#g._lastLines = []
-##
 
 app=Flask(__name__)
 app.config['UPLOAD_FOLDER']=UPLOAD_FOLDER
@@ -48,7 +45,7 @@ def upload_file():
 			file.save(filepath)
 			lastLines = correctReceipt(filepath)
 			lastLines = [l.replace(' ',',').replace('\n',',') for l in lastLines]
-			setattr(g, '_lastLines', lastLines)
+			session["receipt"] = lastLines
 			app.logger.warn(lastLines)
 			return redirect(url_for('upload_file',filename=filename))
 	return '''
@@ -63,7 +60,7 @@ def upload_file():
 @app.route('/getData',methods=['GET'])
 def getData():
 	app.logger.warn("Fetching data:")
-	lastLines = getattr(g, '_lastLines', None)
+	lastLines = session["receipt"]
 	if lastLines is None:
 		lastLines = ["No", "Receipts", "Scanned"]
 	app.logger.warn(','.join(lastLines))
