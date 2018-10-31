@@ -57,7 +57,12 @@ def upload_file():
 	      <input type=submit value=Upload>
 	    </form>
 	'''
-#def showfile():
+@app.route('/getData',methods=['GET'])
+def getData():
+    app.logger.warn("Fetching data:")
+    app.logger.warn(','.join(lastLines))
+    return ','.join(lastLines)
+
 if __name__ == '__main__':
 	app.secret_key = 'aasdfsadfsadfsadf';
 	app.config['SESSION_TYPE'] = 'filesystem';
