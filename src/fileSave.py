@@ -28,13 +28,13 @@ def upload_file():
 		app.logger.warn('is post');
 		#check for file part for the post method
 		if 'photo' not in request.files:
-			#return ('No file part')
+			app.logger.warn("no INPUT file");
 			return redirect(request.url);
 		file=request.files['photo']
 		#if the user doesn't select the file, the browser can 
 		#submit an empty part without a filename
 		if file.filename=='':
-			#return ('No selected file')
+			app.logger.warn("no INPUT filename");
 			return redirect(request.url);
 		app.logger.warn('is good filename');
 		if file and allowed_file(file.filename):
