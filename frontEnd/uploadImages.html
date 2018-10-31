@@ -109,17 +109,17 @@
                   document.getElementById('chooseFile').style.display = "none";
                   document.getElementById('chooseAnotherFile').style.display = "block";
                   
-                  setTimeout(function(){
-                    var xReq = new XMLHttpRequest();
-                    xReq.onreadystatechange = function() {
-                        if (this.readyState == 4 && this.status == 200) {
-                           var resultText = xReq.responseText;
-                           var arrayVals = resultText.split(",");
-                        }
-                    };
-                    xReq.open("GET", "receipt-scanner/getData", true);
-                    xReq.send();
-                  }, 2000);
+                  //setTimeout(function(){
+                  //  var xReq = new XMLHttpRequest();
+                  //  xReq.onreadystatechange = function() {
+                  //      if (this.readyState == 4 && this.status == 200) {
+                  //         var resultText = xReq.responseText;
+                  //         var arrayVals = resultText.split(",");
+                  //      }
+                  //  };
+                  //  xReq.open("GET", "receipt-scanner/getData", true);
+                  //  xReq.send();
+                  //}, 2000);
                 }
                 
                 function submitAgain() {
