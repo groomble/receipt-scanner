@@ -4,6 +4,7 @@ url:http://flask.pocoo.org/docs/1.0/
 date: 9/23/2018
 '''
 import os
+import ocr-pipeline
 from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
 
@@ -11,7 +12,9 @@ UPLOAD_FOLDER=os.path.dirname(os.path.abspath(__file__))+'/upload_folder' #Direc
 
 ALLOWED_EXTENSIONS=set(['png','tif','jpg','gif']) #set of allowed file extensions
 
-#### LEARN RELATIVE vs ABSOLUTE paths
+## FORGIVE ME: global to hold state.
+lastLines = []
+##
 
 app=Flask(__name__)
 app.config['UPLOAD_FOLDER']=UPLOAD_FOLDER
@@ -40,7 +43,10 @@ def upload_file():
 		if file and allowed_file(file.filename):
 			app.logger.warn('uploaded file');
 			filename=secure_filename(file.filename)
-			file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+                        filepath = os.path.join(app.config['UPLOAD_FOLDER'],filename)
+			file.save(filepath)
+                        lastLines = correctReceipt(filepath);
+                        lastLines = [l.replace(' ',',').replace('\n',',') for l in lastLines]
 			return redirect(url_for('upload_file',filename=filename))
 	return '''
 	<!doctype html>
