@@ -147,7 +147,7 @@ def correctReceipt(pic):
         cv2.waitKey()
         cv2.destroyAllWindows()
         return line
-    for i, _ in enumerate(uppers[:-1]):
+    for i, _ in enumerate(lowers[:-1]):
         lines.append(processLine(i))
 
 

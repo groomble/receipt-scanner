@@ -122,7 +122,7 @@ def correctReceipt(pic):
         line = pytesseract.image_to_string(subimg)
         print(line)
         return line
-    for i, _ in enumerate(uppers[:-1]):
+    for i, _ in enumerate(lowers[:-1]):
         lines.append(processLine(i))
 
     return lines
