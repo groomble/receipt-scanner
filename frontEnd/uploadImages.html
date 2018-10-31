@@ -94,7 +94,7 @@
     <div class="container">
         <div class="col-md-2"></div>
         <div class="col-md-8" id="box">
-          <form action="/receipt-scanner/submitphoto" method=POST target=invisframe>
+          <form action="/receipt-scanner/submitphoto" method=POST target=invisframe enctype="multipart/form-data">
             <h1 class="heroFont" id="heroFont">Upload Images</h1>
             <img src="images/imagePreview.png" class="img-responsive" id="imagePreview" style="height: 30vh; margin: auto">
             <h2 class="heroFont" id="success" style="display: none">Image Successfully Uploaded!</h2>
