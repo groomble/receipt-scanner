@@ -64,7 +64,7 @@ def getData():
 	app.logger.warn("Fetching data:")
 	lastLines = g._lastLines
 	if lastLines is None:
-	    lastLines = ["No", "Receipts", "Scanned"]
+		lastLines = ["No", "Receipts", "Scanned"]
 	app.logger.warn(','.join(lastLines))
 	return ','.join(lastLines)
 
