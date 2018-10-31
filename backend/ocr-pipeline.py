@@ -130,4 +130,3 @@ def correctReceipt(pic):
 
 print("OpenCV2 version: %s"%cv2.__version__)
 
-print(correctReceipt("test-receipts/IMG_20181023_200121.jpg"))
