@@ -43,10 +43,10 @@ def upload_file():
 		if file and allowed_file(file.filename):
 			app.logger.warn('uploaded file');
 			filename=secure_filename(file.filename)
-                        filepath = os.path.join(app.config['UPLOAD_FOLDER'],filename)
+			filepath = os.path.join(app.config['UPLOAD_FOLDER'],filename)
 			file.save(filepath)
-                        lastLines = correctReceipt(filepath);
-                        lastLines = [l.replace(' ',',').replace('\n',',') for l in lastLines]
+			lastLines = correctReceipt(filepath);
+			lastLines = [l.replace(' ',',').replace('\n',',') for l in lastLines]
 			return redirect(url_for('upload_file',filename=filename))
 	return '''
 	<!doctype html>
