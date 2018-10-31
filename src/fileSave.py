@@ -48,7 +48,7 @@ def upload_file():
 			file.save(filepath)
 			lastLines = correctReceipt(filepath)
 			lastLines = [l.replace(' ',',').replace('\n',',') for l in lastLines]
-			setAttr(g, '_lastLines', lastLines)
+			setattr(g, '_lastLines', lastLines)
 			return redirect(url_for('upload_file',filename=filename))
 	return '''
 	<!doctype html>
