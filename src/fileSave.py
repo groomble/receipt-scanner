@@ -14,7 +14,7 @@ UPLOAD_FOLDER=os.path.dirname(os.path.abspath(__file__))+'/upload_folder' #Direc
 ALLOWED_EXTENSIONS=set(['png','tif','jpg','gif']) #set of allowed file extensions
 
 ## FORGIVE ME: global to hold state.
-g._lastLines = []
+#g._lastLines = []
 ##
 
 app=Flask(__name__)
@@ -63,6 +63,8 @@ def upload_file():
 def getData():
 	app.logger.warn("Fetching data:")
 	lastLines = g._lastLines
+        if lastLines is None:
+            lastLines = ["No", "Receipts", "Scanned"]
 	app.logger.warn(','.join(lastLines))
 	return ','.join(lastLines)
 
