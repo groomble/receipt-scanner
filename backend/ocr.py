@@ -65,10 +65,6 @@ def correctReceipt(pic):
     visrect = cv2.boxPoints(rect)
     visrect = np.int0(visrect)
     #cv2.drawContours(img,[visrect],0,(0,0,255),2)
-    cv2.namedWindow("result", cv2.WINDOW_NORMAL);
-    cv2.imshow("result", img);
-    cv2.waitKey();
-    cv2.destroyAllWindows();
 
     # Build perspective matrix
     width, height = img.shape[:2]
@@ -92,19 +88,85 @@ def correctReceipt(pic):
     mat = cv2.getPerspectiveTransform(approxpts, pts)
     aligned = cv2.warpPerspective(img, mat, (width, height))
 
+
+    cv2.namedWindow("result", cv2.WINDOW_NORMAL);
+    cv2.imshow("result", aligned);
+    cv2.waitKey();
+    cv2.destroyAllWindows();
     # Finally with fixed image, go rethreshold
-    (thresh, _) = cv2.threshold(img_gray,0,255,cv2.THRESH_BINARY|cv2.THRESH_OTSU)
+    img_gray = cv2.cvtColor(aligned, cv2.COLOR_BGR2GRAY);
+    img_bw = cv2.adaptiveThreshold(img_gray,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
+                        cv2.THRESH_BINARY,11,5)
+    del img_gray
+
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(3,3))
+    img_bw = cv2.dilate(img_bw, kernel, iterations=1, borderType=cv2.BORDER_REPLICATE);
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(9,9))
+    img_bw = cv2.erode(img_bw, kernel, iterations=1, borderType=cv2.BORDER_REPLICATE);
+
+    #Magic courtesy of S.O. 34981144
+    hist = cv2.reduce(img_bw, 1, cv2.REDUCE_AVG).reshape(-1)
+    hist = cv2.GaussianBlur(hist,(5,5),0)
+    #find mean of hist:
+    H,W = img_bw.shape[:2]
+    cv2.namedWindow("result", cv2.WINDOW_NORMAL)
+    def updateBounds(ratio):
+        upd = aligned.copy();
+        thresh = 0
+        for val in hist:
+            thresh = thresh + val[0]
+        thresh = thresh//H
+        thresh = thresh * 1000 // (ratio)  
+        print(thresh)
+        uppers = [y for y in range(H-1) if hist[y]<=thresh and hist[y+1]>thresh]
+        lowers = [y for y in range(H-1) if hist[y]>thresh and hist[y+1]<=thresh]
+
+        for y in uppers:
+            cv2.line(upd, (0,y), (W, y), (255,0,0), 1)
+
+        for y in lowers:
+            cv2.line(upd, (0,y), (W, y), (0,255,0), 1)
+        cv2.imshow("result", upd)
+        return (uppers, lowers)
+
+    cv2.createTrackbar("ratio", "result", 955, 2000, updateBounds)
+    (uppers, lowers) = updateBounds(955)
+    cv2.waitKey()
+    cv2.destroyAllWindows()
+    #End magic
+
+    print(uppers)
+    print(lowers)
+    lines = []
+    def processLine(i):
+        subimg = img_bw[uppers[i]:lowers[i+1], 0:W]
+        line = pytesseract.image_to_string(subimg)
+        print(line)
+        cv2.namedWindow("result", cv2.WINDOW_NORMAL)
+        cv2.imshow("result", subimg)
+        cv2.waitKey()
+        cv2.destroyAllWindows()
+        return line
+    for i, _ in enumerate(uppers[:-1]):
+        lines.append(processLine(i))
+
+
+    #cv2.waitKey()
+    #cv2.destroyAllWindows()
+
+
 
     #testing:
     print("name :\t" + '.'.join(parts[0:-1])+".bw."+parts[-1]);
     cv2.imwrite('.'.join(parts[0:-1])+".bw.png", img_bw);
     print("name :\t" + '.'.join(parts[0:-1])+".aligned."+parts[-1]);
     cv2.imwrite('.'.join(parts[0:-1])+".aligned.png", aligned);
+    return lines
 
 
 print("OpenCV2 version: %s"%cv2.__version__);
 #harvestLine("test/helloworld.png");
 correctReceipt("test-receipts/IMG_20180926_111127.jpg");
-correctReceipt("test-receipts/IMG_20180926_112137.jpg");
+#correctReceipt("test-receipts/IMG_20180926_112137.jpg");
 correctReceipt("test-receipts/IMG_20181023_200121.jpg");
 
