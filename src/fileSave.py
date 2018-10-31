@@ -16,6 +16,7 @@ ALLOWED_EXTENSIONS=set(['png','tif','jpg','gif']) #set of allowed file extension
 
 app=Flask(__name__)
 app.config['UPLOAD_FOLDER']=UPLOAD_FOLDER
+app.secret_key = ';lkjasf;ieawnaxnu213';
 
 def allowed_file(filename):
 	app.logger.warn('extension:\t'+filename.rsplit('.',1)[-1].lower());
@@ -67,7 +68,6 @@ def getData():
 	return ','.join(lastLines)
 
 if __name__ == '__main__':
-	app.secret_key = 'aasdfsadfsadfsadf';
 	app.config['SESSION_TYPE'] = 'filesystem';
 	app.debug = True;
 	app.run()
