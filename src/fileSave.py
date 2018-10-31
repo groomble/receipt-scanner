@@ -48,7 +48,7 @@ def upload_file():
 			file.save(filepath)
 			lastLines = correctReceipt(filepath)
 			lastLines = [l.replace(' ',',').replace('\n',',') for l in lastLines]
-			g._lastLines = lastLines
+			setAttr(g, '_lastLines', lastLines)
 			return redirect(url_for('upload_file',filename=filename))
 	return '''
 	<!doctype html>
@@ -62,7 +62,7 @@ def upload_file():
 @app.route('/getData',methods=['GET'])
 def getData():
 	app.logger.warn("Fetching data:")
-	lastLines = g._lastLines
+	lastLines = getattr(g, '_lastLines', None)
 	if lastLines is None:
 		lastLines = ["No", "Receipts", "Scanned"]
 	app.logger.warn(','.join(lastLines))
