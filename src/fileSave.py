@@ -66,6 +66,9 @@ def getData():
 		lastLines = ["No", "Receipts", "Scanned"]
 	app.logger.warn(','.join(lastLines))
 	return ','.join(lastLines)
+@app.route('/login',methods=['GET'])
+def dummyLogin():
+    return redirect('../uploadImages.html')
 
 if __name__ == '__main__':
 	app.config['SESSION_TYPE'] = 'filesystem';
