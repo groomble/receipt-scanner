@@ -106,7 +106,20 @@
                   document.getElementById('uploadButton').style.display = "none";
                   document.getElementById('chooseFile').style.display = "none";
                   document.getElementById('chooseAnotherFile').style.display = "block";
+                  
+                  setTimeout(function(){
+                    var xReq = new XMLHttpRequest();
+                    xReq.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                           var resultText = xReq.responseText;
+                           var arrayVals = resultText.split(",");
+                        }
+                    };
+                    xReq.open("GET", "receipt-scanner/getData", true);
+                    xReq.send();
+                  }, 2000);
                 }
+                
                 function submitAgain() {
                   document.getElementById('imagePreview').src = "images/imagePreview.png";
                   document.getElementById('heroFont').style.display = "block";
@@ -116,6 +129,7 @@
                   document.getElementById('chooseFile').value = "";
                   document.getElementById('chooseAnotherFile').style.display = "none";
                 }
+                
               </script>
               <input type="text" name="timestamp" id="timestamp" style="display: none" id="timestamp"></input>
               <button style="margin: auto; text-align: center; display: none; border-radius: 5px; margin-top: 5vh" id="chooseAnotherFile"
@@ -135,6 +149,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <script>
+      
       function promptLocation() {
 
         if (!navigator.geolocation){
