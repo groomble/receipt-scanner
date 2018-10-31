@@ -1,3 +1,8 @@
+'''
+This file was written using flask documentation 
+url:http://flask.pocoo.org/docs/1.0/
+date: 9/23/2018
+'''
 import os
 from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
