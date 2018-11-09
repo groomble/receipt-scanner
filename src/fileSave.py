@@ -4,8 +4,12 @@ url:http://flask.pocoo.org/docs/1.0/
 date: 9/23/2018
 '''
 import os
-from flask import Flask, flash, request, redirect, url_for
+from flask import Flask, flash, request,render_template,url_for,redirect,session
 from werkzeug.utils import secure_filename
+from wtforms import Form 
+from passlib.hash import sha256_crypt
+import jaydebeapi
+from h2connect import connection
 
 UPLOAD_FOLDER=os.path.dirname(os.path.abspath(__file__))+'/upload_folder' #Directory to store files
 
@@ -13,8 +17,9 @@ ALLOWED_EXTENSIONS=set(['png','tif','jpg','gif']) #set of allowed file extension
 
 #### LEARN RELATIVE vs ABSOLUTE paths
 
-app=Flask(__name__)
+app=Flask(__name__, template_folder='../frontEnd')
 app.config['UPLOAD_FOLDER']=UPLOAD_FOLDER
+
 
 def allowed_file(filename):
 	app.logger.warn('extension:\t'+filename.rsplit('.',1)[-1].lower());
@@ -51,6 +56,95 @@ def upload_file():
 	      <input type=submit value=Upload>
 	    </form>
 	'''
+@app.route('/home',methods=['POST','GET'])
+def index():
+	return '''
+				<!DOCTYPE html>
+				<html>
+				<body>
+
+				<h2>Sign up</h2>
+				<form action="/signup" method="post">
+				  <fieldset>
+				    <legend>Sign up</legend>
+				    Username:<br>
+				    <input type="text" name="username" value="username">
+				    <br>
+				    Email:<br>
+				    <input type="text" name="email" value="email">
+				    <br>
+				    Password:<br>
+				    <input type="password" name="password" value="username">
+				    <br><br>
+				    <input type="submit" value="Submit">
+				  </fieldset>
+				</form>
+
+				</body>
+				</html>'''
+
+@app.route('/signup',methods=['POST','GET'])
+def signup():
+	'''if request.method=='GET':
+		Connect to the database
+		username=request.form.get('username')
+		email=request.form.get('email')
+		password=request.form.get('password')
+		confirm=request.form.get('repeatPassword')
+	return render_template("signup.html")'''
+	try: 
+		#return("OKAY")
+		if request.method=="POST":
+			username=request.form['username']
+			password= sha256_crypt.encrypt(str(request.form['password']))
+			email=request.form['email']
+			cursor,con=connection()
+			x=cursor.execute("SELECT USERNAME FROM REGISTRATION where USERNAME = %s", username)
+			if int(len(x))>0:
+				flash("That name is taken please try again")
+				return '''
+						<!DOCTYPE html>
+						<html>
+						<body>
+
+						<h2>Sign up</h2>
+						<form action="/signup" method="post">
+						  <fieldset>
+						    <legend>Sign up</legend>
+						    Username:<br>
+						    <input type="text" name="username" value="username">
+						    <br>
+						    Email:<br>
+						    <input type="text" name="username" value="email">
+						    <br>
+						    Password:<br>
+						    <input type="password" name="password" value="username">
+						    <br><br>
+						    <input type="submit" value="Submit">
+						  </fieldset>
+						</form>
+						</body>
+						</html>'''
+			else:
+				cursor.execute("INSERT INTO REGISTRATION (USERNAME,EMAIL,PASSWORD) VALUES (%S,%S,%S)", username,password,email)
+				con.commit()
+				flash("Thank you registering")
+				cursor.close()
+				con.close()
+				session['logged_in']=True
+				session['username']=username
+				return redirect(url_for('login')) #in our case it would be the main.html page
+	except Exception as e:
+		return(str(e))
+
+@app.route('/login', methods=['POST','GET'])
+def login():
+	if request.method=='GET':
+		username=request.form.get('username') #accessing the data inside
+		password= sha256_crypt.encrypt(str(request.form.get('password')))
+		return redirect(url_for('index'))
+	return redirect(url_for('index'))
+
 #def showfile():
 if __name__ == '__main__':
 	app.secret_key = 'aasdfsadfsadfsadf';
