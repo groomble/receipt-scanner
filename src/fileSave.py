@@ -5,6 +5,9 @@ date: 9/23/2018
 '''
 import os
 from flask import Flask, flash, request,render_template,url_for,redirect,session
+from ocr_pipeline import correctReceipt
+from flask import Flask, flash, request, redirect, url_for
+from flask import session
 from werkzeug.utils import secure_filename
 from wtforms import Form 
 from passlib.hash import sha256_crypt
@@ -15,10 +18,10 @@ UPLOAD_FOLDER=os.path.dirname(os.path.abspath(__file__))+'/upload_folder' #Direc
 
 ALLOWED_EXTENSIONS=set(['png','tif','jpg','gif']) #set of allowed file extensions
 
-#### LEARN RELATIVE vs ABSOLUTE paths
 
 app=Flask(__name__, template_folder='../frontEnd')
 app.config['UPLOAD_FOLDER']=UPLOAD_FOLDER
+app.secret_key = ';lkjasf;ieawnaxnu213';
 
 
 def allowed_file(filename):
@@ -45,7 +48,12 @@ def upload_file():
 		if file and allowed_file(file.filename):
 			app.logger.warn('uploaded file');
 			filename=secure_filename(file.filename)
-			file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+			filepath = os.path.join(app.config['UPLOAD_FOLDER'],filename)
+			file.save(filepath)
+			lastLines = correctReceipt(filepath)
+			lastLines = [l.replace(' ',',').replace('\n',',') for l in lastLines]
+			session["receipt"] = lastLines
+			app.logger.warn(lastLines)
 			return redirect(url_for('upload_file',filename=filename))
 	return '''
 	<!doctype html>
@@ -146,8 +154,18 @@ def login():
 	return redirect(url_for('index'))
 
 #def showfile():
+@app.route('/getData',methods=['GET'])
+def getData():
+	app.logger.warn("Fetching data:")
+	lastLines = session["receipt"]
+	if lastLines is None:
+		lastLines = ["No", "Receipts", "Scanned"]
+	app.logger.warn(','.join(lastLines))
+	return ','.join(lastLines)
+@app.route('/login',methods=['GET'])
+def dummyLogin():
+    return redirect('/../uploadImages.html')
 if __name__ == '__main__':
-	app.secret_key = 'aasdfsadfsadfsadf';
 	app.config['SESSION_TYPE'] = 'filesystem';
 	app.debug = True;
 	app.run()
