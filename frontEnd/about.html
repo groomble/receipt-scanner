@@ -22,7 +22,48 @@
         text-align: center;
       }
       #theTeam {
-        margin-top: 10vh;
+        text-align: center;
+        border-bottom: 1px solid gray;
+        width: 50%;
+        padding-bottom: 2vh;
+        margin: auto;
+      }
+      #nathanPhoto {
+        height: 25vh;
+        float: left;
+      }
+      #chrisPhoto {
+        height: 24vh;
+        float: left;
+      }
+      #noahPhoto {
+        height: 26vh;
+        float: left;
+      }
+      #bioInfo {
+        width: 54%;
+        padding-left: 20px;
+        float: left;
+        font-size: 12pt;
+        font-family: garamond;
+      }
+      #bioTitle {
+        font-weight: bold;
+        font-size: 12pt;
+      }
+      #nameTitle {
+        margin-left: 20px;
+        padding-right: 20px;
+        padding-top: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid gray;
+        float: left;
+      }
+      div#firstRow {
+        margin-top: 8vh;
+      }
+      div#secondRow {
+        margin-top: 8vh;
       }
       /* General sizing */
       /* mobile fix */
@@ -39,7 +80,7 @@
     <![endif]-->
   </head>
   <body style="height: 100vh">
-    <nav class="navbar navbar-inverse navbar-static-top" style="margin-bottom: 7vh">
+    <nav class="navbar navbar-inverse navbar-static-top" style="margin-bottom: 9vh">
     <div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -65,16 +106,35 @@
     <!-- ========================================== END OF NAVBAR ========================================== -->
     
     <div class="container">
-      <div class="col-md-2"></div>
-      <div class="col-md-8" id="ourMission">
-        <h1 class="heroFont">Our Mission</h1>
-        <p style="border-top: 1px solid gray; padding-top: 2vh">Placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text
-         placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text
-         placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text
-         placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text</p>
-        <h1 class="heroFont" id="theTeam">The Team</h1>
+      <h1 class="heroFont" id="theTeam">The Team</h1>
+      <div class="row" id="firstRow"> 
+        <div class="col-md-6">
+          <img class="img-responsive" src="images/nathan.png" id="nathanPhoto">
+          <h3 id="nameTitle">Nathan Hodgson</h3>
+          <p id="bioInfo"><span id="bioTitle">SENIOR FRONT-END DEVELOPER</span></br>Responsible for everything front-end, Nathan works hard to ensure that
+          Nutrove has a dynamic user interface that is cross compatible with all phones and laptops.</p>
+        </div>
+        <div class="col-md-6">
+          <img class="img-responsive" src="images/jules.png" id="nathanPhoto">
+          <h3 id="nameTitle">Jules Bibonimana</h3>
+          <p id="bioInfo"><span id="bioTitle">PLACEHOLDER JOB TITLE</span></br>Please write something for yourself, and fill in the placeholder job title
+          as well. This is just some more placeholder text to see how the rest of the webpage will look.</p>
+        </div>
       </div>
-      <div class="col-md-2"></div>
+      <div class="row" id="secondRow">
+        <div class="col-md-6">
+          <img class="img-responsive" src="images/christian.png" id="chrisPhoto">
+          <h3 id="nameTitle">Christian Joachim</h3>
+          <p id="bioInfo"><span id="bioTitle">SENIOR FRONT-END DEVELOPER</span></br>Responsible for everything front-end, Nathan works hard to ensure that
+          Nutrove has a dynamic user interface that is cross compatible with all phones and laptops.</p>
+        </div>
+        <div class="col-md-6">
+          <img class="img-responsive" src="images/noah.png" id="noahPhoto">
+          <h3 id="nameTitle">Noah Cowie</h3>
+          <p id="bioInfo"><span id="bioTitle">PLACEHOLDER JOB TITLE</span></br>Please write something for yourself, and fill in the placeholder job title
+          as well. This is just some more placeholder text to see how the rest of the webpage will look.</p>
+        </div>
+      </div>
     </div>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
