@@ -5,7 +5,7 @@ date: 9/23/2018
 '''
 import os
 from flask import Flask, flash, request,render_template,url_for,redirect,session
-#from ocr_pipeline import correctReceipt
+from ocr_pipeline import correctReceipt
 from flask import Flask, flash, request, redirect, url_for
 from flask import session
 from werkzeug.utils import secure_filename
