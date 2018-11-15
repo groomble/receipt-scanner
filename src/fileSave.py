@@ -28,8 +28,8 @@ def allowed_file(filename):
 	app.logger.warn('extension:\t'+filename.rsplit('.',1)[-1].lower());
 	return '.'in filename and \
 			filename.rsplit('.',1)[-1].lower() in ALLOWED_EXTENSIONS
-@app.route('/submitphoto',methods=['GET','POST'])
 
+@app.route('/submitphoto',methods=['GET','POST'])
 def upload_file():
 	app.logger.warn('endpoint');
 	if request.method=='POST': 
@@ -55,7 +55,8 @@ def upload_file():
 			session["receipt"] = lastLines
 			app.logger.warn(lastLines)
 			return redirect(url_for('upload_file',filename=filename))
-	return '''
+	'''
+	return 
 	<!doctype html>
 	    <title>Receipt Scanner</title>
 	    <h1>Uploading pictures</h1>
@@ -64,10 +65,11 @@ def upload_file():
 	      <input type=submit value=Upload>
 	    </form>
 	'''
+	return redirect(url_for('uploadImages.html'))
 @app.route('/home',methods=['POST','GET'])
 def index():
-	return '''
-				<!DOCTYPE html>
+	return
+				'''<!DOCTYPE html>
 				<html>
 				<body>
 
@@ -90,6 +92,7 @@ def index():
 
 				</body>
 				</html>'''
+	return redirect(url_for(inde))
 
 @app.route('/signup',methods=['POST','GET'])
 def signup():
@@ -110,7 +113,8 @@ def signup():
 			x=cursor.execute("SELECT USERNAME FROM REGISTRATION where USERNAME = %s", username)
 			if int(len(x))>0:
 				flash("That name is taken please try again")
-				return '''
+				return redirect()
+				'''return 
 						<!DOCTYPE html>
 						<html>
 						<body>
@@ -151,7 +155,9 @@ def login():
 		username=request.form.get('username') #accessing the data inside
 		password= sha256_crypt.encrypt(str(request.form.get('password')))
 		return redirect(url_for('index'))
-	return redirect(url_for('index'))
+	return redirect('index')
+	'''
+	return(redirect('/../index.hmtl'))'''
 
 #def showfile():
 @app.route('/getData',methods=['GET'])
@@ -162,9 +168,9 @@ def getData():
 		lastLines = ["No", "Receipts", "Scanned"]
 	app.logger.warn(','.join(lastLines))
 	return ','.join(lastLines)
-@app.route('/login',methods=['GET'])
+'''@app.route('/login',methods=['GET'])
 def dummyLogin():
-    return redirect('/../uploadImages.html')
+    return redirect('/../uploadImages.html')'''
 if __name__ == '__main__':
 	app.config['SESSION_TYPE'] = 'filesystem';
 	app.debug = True;
