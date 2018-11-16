@@ -28,6 +28,26 @@
     #goalSlider .slider-selection {
       background: #BABABA;
     }
+    #dateBar {
+      background-color: #1aba24;
+      height: 6vh;
+      text-align: center;
+    }
+    #dateText {
+      color: white;
+      font-family: "Hero Light";
+      line-height: 6vh;
+      font-size: 3vh;
+      margin: auto;
+    }
+    #leftArrow {
+      height: 80%;
+      float: left;
+    }
+    #rightArrow {
+      height: 80%;
+      float: left;
+    }
       /* General sizing */
       /* mobile fix */
       @media (max-width: 768px) {
@@ -75,8 +95,8 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body style="height: 100vh">
-    <nav class="navbar navbar-inverse navbar-static-top" style="margin-bottom: -1vh">
+  <body style="height: 100vh" onload="displayDate();">
+    <nav class="navbar navbar-inverse navbar-static-top" style="margin-bottom: 0px">
     <div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -98,8 +118,14 @@
         </div>
     </div>
     </nav>
-      
-      <div class="container" id="macroInfo" style="background: white">
+     
+    <div class="container">
+      <div class="row" id="dateBar">
+        <img src="images/leftArrowWhite.png" id="leftArrow">
+        <div id="dateText">Thursday, Nov 15</div>
+        <img src="images/rightArrowWhite.png" id="rightArrow">
+      </div>
+      <div class="row" id="macroInfo" style="background: white">
         <h1 class="heroFont" id="macronutrients" style="text-align: center; margin-bottom: 8vh; margin-top: 10vh">Macronutrient Information</h1>
         <div class="col-md-1"></div>
         <div class="col-md-3">
@@ -186,7 +212,7 @@
           <canvas id="doughnutChart"></canvas>
         </div>
       </div>
-      <div class="container" id="financialInfo" style="background: white">
+      <div class="row" id="financialInfo" style="background: white">
         <h1 class="heroFont" id="financial" style="text-align: center; margin-top: 10vh; margin-bottom: 8vh">Financial</h1>
         <div class="col-md-1"></div>
         <div class="col-md-3" id="spendingRates">
@@ -202,7 +228,7 @@
         </div>
         <div class="col-md-1"></div>
       </div>
-      
+    </div> 
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
@@ -274,6 +300,10 @@
                 responsive: true
               }
             });  
+      }
+      
+      function displayDate() {
+        
       }
     </script>
   </body>
