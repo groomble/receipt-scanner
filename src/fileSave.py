@@ -68,41 +68,32 @@ def upload_file():
 	return redirect(url_for('uploadImages.html'))
 @app.route('/home',methods=['POST','GET'])
 def index():
-	return
-				'''<!DOCTYPE html>
-				<html>
-				<body>
-
-				<h2>Sign up</h2>
-				<form action="/signup" method="post">
-				  <fieldset>
-				    <legend>Sign up</legend>
-				    Username:<br>
-				    <input type="text" name="username" value="username">
-				    <br>
-				    Email:<br>
-				    <input type="text" name="email" value="email">
-				    <br>
-				    Password:<br>
-				    <input type="password" name="password" value="username">
-				    <br><br>
-				    <input type="submit" value="Submit">
-				  </fieldset>
-				</form>
-
-				</body>
-				</html>'''
-	return redirect(url_for(inde))
+	return '''
+		<!DOCTYPE html>
+		<html>
+		<body>
+		<h2>Sign up</h2>
+		<form action="/signup" method="post">
+		  <fieldset>
+		    <legend>Sign up</legend>
+		    Username:<br>
+		    <input type="text" name="username" value="username">
+		    <br>
+		    Email:<br>
+		    <input type="text" name="email" value="email">
+		    <br>
+		    Password:<br>
+		    <input type="password" name="password" value="username">
+		    <br><br>
+		    <input type="submit" value="Submit">
+		  </fieldset>
+		</form>
+		</body>
+		</html>'''
+	return redirect(url_for('index'))
 
 @app.route('/signup',methods=['POST','GET'])
 def signup():
-	'''if request.method=='GET':
-		Connect to the database
-		username=request.form.get('username')
-		email=request.form.get('email')
-		password=request.form.get('password')
-		confirm=request.form.get('repeatPassword')
-	return render_template("signup.html")'''
 	try: 
 		#return("OKAY")
 		if request.method=="POST":
@@ -113,7 +104,7 @@ def signup():
 			x=cursor.execute("SELECT USERNAME FROM REGISTRATION where USERNAME = %s", username)
 			if int(len(x))>0:
 				flash("That name is taken please try again")
-				return redirect()
+				return redirect(url_for('signup'))
 				'''return 
 						<!DOCTYPE html>
 						<html>
