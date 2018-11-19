@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Nutrove</title>{% block title %}
     <link rel="apple-touch-icon" href="images/logo-iphone.png"/>
+    <title>Nutrove</title>
     <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
       @font-face {
@@ -95,7 +95,6 @@
               <div class="text-center">
                 <h3><b>Log In</b></h3></div>
               <!--<form id="ajax-login-form" action="/receipt-scanner/login" method="get" role="form" autocomplete="off">-->
-              {% block content %}
               <form id="ajax-login-form" action="uploadImages.html" method="get" role="form" autocomplete="off">
                 <div class="form-group">
                   <label for="username">Username</label>
@@ -129,7 +128,7 @@
                   </div>
                 </div>
                 <input type="hidden" class="hide" name="token" id="token" value="a465a2791ae0bae853cf4bf485dbe1b6">
-              </form> {%endblock %}
+              </form>
             </div>
           </ul>
         </li>
