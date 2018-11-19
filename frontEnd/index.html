@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nutrove</title>
+
+    <link rel="apple-touch-icon" href="images/logo-iphone.png"/>
     <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
       @font-face {
@@ -64,13 +66,16 @@
           margin-bottom: 20px;
         }
       }
+      body {
+        height: 100vh;
+      }
     </style>
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body style="height: 100vh">
+  <body>
     <nav class="navbar navbar-inverse navbar-static-top" style="margin-bottom: 17vh">
     <div class="container">
 		<div class="navbar-header">
@@ -141,7 +146,7 @@
       </div>
       <div class="col-md-2"></div>
     </div>
-    <div class="container featuresContainer">
+    <div class="row featuresContainer">
       <a href="signup.html" style="text-decoration: none; color: black">
         <div class="col-md-4 features" id="health" onmouseover="rollover(this);" onmouseout="mouseOut(this);">
           <img src="images/health.png" class="img-responsive" id="healthImage" style="height: 100px; margin: auto">

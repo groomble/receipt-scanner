@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nutrove</title>
-    <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="bootstrap-3.3.7-dist/css/bootstrap-slider.min.css" rel="stylesheet">
     <style>
       @font-face {
@@ -28,7 +29,62 @@
     #goalSlider .slider-selection {
       background: #BABABA;
     }
+    div#dateBar {
+      background-color: #1aba24;
+      height: 6vh;
+      text-align: center;
+    }
+    span#dateText {
+      color: white;
+      font-family: "Hero Light";
+      /*line-height: 6vh;*/
+      font-size: 3vh;
+      margin: auto;
+    }
+    ul#dateBar {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      height: 6vh;
+      line-height: 6vh;
+    }
+    div.table {
+      display: table;
+      margin: 0 auto;
+    }
+    li#dateBar {
+      display: inline-block;
+      height: 5vh;
+      line-height: 5vh;
+      vertical-align: middle;
+      padding-left: 1vw;
+      padding-right: 1vw;
+      border-radius: 15px;
+    }
+    li.date {
+      width: 30%;
+    }
+    li.leftArrow:hover {
+      cursor: pointer;
+    }
+    li.rightArrow:hover {
+      cursor: pointer;
+    }
+    #leftArrow {
+      height: 3vh;
+    }
+    #rightArrow {
+      height: 3vh;
+    }
       /* General sizing */
+      /* Ipad Pro Fix */
+      @media (max-width: 1024px) {
+        @media (max-height: 1366px) {
+          li.date {
+            width: 50%;
+          }
+        }
+      }
       /* mobile fix */
       @media (max-width: 768px) {
         #financialInfo {
@@ -68,15 +124,19 @@
         #macronutrients {
           margin-bottom: 5vh !important;
         }
+        li.date {
+          width: 250px;
+        }
       }
+      
     </style>
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body style="height: 100vh">
-    <nav class="navbar navbar-inverse navbar-static-top" style="margin-bottom: -1vh">
+  <body style="height: 100vh" onload="setDate();">
+    <nav class="navbar navbar-inverse navbar-static-top" style="margin-bottom: 0px">
     <div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -92,14 +152,29 @@
                 <li><a href="uploadImages.html">Upload Images</a></li>
                 <li><a href="stats.html" style="color: white">My Statistics</a></li>
                 <li><a href="receiptInfo.html">Receipts</a></li>
+                <li><a href="pantry.html">Pantry</a></li>
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="index.html">Log Out</a></li>
             </ul>
         </div>
     </div>
     </nav>
-      
-      <div class="container" id="macroInfo" style="background: white">
+     
+    <div class="container">
+      <div class="row" id="dateBar">
+        <div class="table">
+          <ul id="dateBar">
+            <li id="dateBar" class="leftArrow" onmouseover="rollover(this);" onmouseout="mouseOut(this);" onclick="changeDate(this);">
+              <img src="images/leftArrowWhite.png" id="leftArrow">
+            </li>
+            <li id="dateBar" class="date"><span id="dateText"></span></li>
+            <li id="dateBar" class="rightArrow" onmouseover="rollover(this);" onmouseout="mouseOut(this);" onclick="changeDate(this);">
+              <img src="images/rightArrowWhite.png" id="rightArrow">
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row" id="macroInfo" style="background: white">
         <h1 class="heroFont" id="macronutrients" style="text-align: center; margin-bottom: 8vh; margin-top: 10vh">Macronutrient Information</h1>
         <div class="col-md-1"></div>
         <div class="col-md-3">
@@ -186,7 +261,7 @@
           <canvas id="doughnutChart"></canvas>
         </div>
       </div>
-      <div class="container" id="financialInfo" style="background: white">
+      <div class="row" id="financialInfo" style="background: white">
         <h1 class="heroFont" id="financial" style="text-align: center; margin-top: 10vh; margin-bottom: 8vh">Financial</h1>
         <div class="col-md-1"></div>
         <div class="col-md-3" id="spendingRates">
@@ -202,7 +277,7 @@
         </div>
         <div class="col-md-1"></div>
       </div>
-      
+    </div> 
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
@@ -210,6 +285,65 @@
     <script src="MDB-Free_4.5.13/js/mdb.js"></script>
     
     <script>
+      var daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      var monthsOfYear = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+      var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+      var dateToday = new Date();
+      var today = dateToday.getDay();
+      var month = dateToday.getMonth();
+      var date = dateToday.getDate();
+      
+      function setDate() {
+        document.getElementById('dateText').innerHTML = daysOfWeek[today] + ", " + monthsOfYear[month] + " " + date;
+      }
+      
+      function changeDate(arrow) {
+        var direction = arrow.className;
+        if (direction == "leftArrow") {
+          if (today == 0) {
+            today = 6;
+          } else {
+            today -= 1;
+          }
+          if (date == 1) {
+            if (month == 0) {
+              month = 11;
+              date = daysInMonth[month-1];
+            }
+            else {
+              month -= 1;
+              date = daysInMonth[month];
+            }
+          } else {
+            date -= 1;
+          }
+        }
+        else if (direction == "rightArrow") {
+          if (today == 6) {
+            today = 0;
+          } else {
+            today += 1;
+          }
+          if (date >= daysInMonth[month]) {
+            date = 1;
+            if (month == 11)
+              month = 0;
+            else
+              month += 1;
+          } else {
+            date += 1;
+          }
+        }
+        document.getElementById('dateText').innerHTML = daysOfWeek[today] + ", " + monthsOfYear[month] + " " + date;
+      }
+      
+      function rollover(image) {
+        document.getElementById(image.className).src = "images/" + image.className + ".png";
+      }
+      function mouseOut(image) {
+        document.getElementById(image.className).src = "images/" + image.className +"White.png";
+      }
+      
      //doughnut
       var ctxD = document.getElementById("doughnutChart").getContext('2d');
       new Chart(ctxD, {

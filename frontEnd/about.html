@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nutrove</title>
-    <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <style>
       @font-face {
         font-family: "Hero Light";
@@ -77,7 +78,55 @@
       /* General sizing */
       /* mobile fix */
       @media (max-width: 768px) {
-
+        #nathanPhoto {
+          margin: auto;
+          text-align: center;
+          display: block;
+          float: none;
+          height: 40vh;
+        }
+        #noahPhoto {
+          margin: auto;
+          text-align: center;
+          display: block;
+          float: none;
+          height: 40vh;
+        }
+        #chrisPhoto {
+          margin: auto;
+          text-align: center;
+          display: block;
+          float: none;
+          height: 40vh;
+        }
+        #nameTitle {
+          float: none;
+          text-align: center;
+          padding-right: 0px;
+          margin-right: 20px;
+        }
+        #bioInfo {
+          width: 100%;
+          float: none;
+          text-align: center;
+          padding-left: 10px;
+          padding-right: 10px;
+          margin-right: 10px;
+        }
+        .spacing {
+          margin-bottom: 7vh !important;
+        }
+        #firstRow {
+          text-align: center;
+          margin: auto;
+          margin-bottom: 0px;
+          padding-bottom: 0px;
+        }
+        #secondRow {
+          text-align: center;
+          margin: auto;
+          padding-top: 0px;
+        }
       }
       @media (max-width: 991px) {
 
@@ -105,6 +154,7 @@
                 <li><a href="uploadImages.html">Upload Images</a></li>
                 <li><a href="stats.html">My Statistics</a></li>
                 <li><a href="receiptInfo.html">Receipts</a></li>
+                <li><a href="pantry.html">Pantry</a></li>
                 <li><a href="about.html" style="color: white">About Us</a></li>
                 <li><a href="index.html">Log Out</a></li>
             </ul>
@@ -120,26 +170,26 @@
         <div class="col-md-6">
           <img class="img-responsive" src="images/nathan.png" id="nathanPhoto">
           <h3 id="nameTitle">Nathan Hodgson</h3>
-          <p id="bioInfo"><span id="bioTitle">SENIOR FRONT-END DEVELOPER</span></br>Responsible for everything front-end, Nathan works hard to ensure that
+          <p id="bioInfo" class="spacing"><span id="bioTitle">SENIOR FRONT-END DEVELOPER</span></br>Responsible for everything front-end, Nathan works hard to ensure that
           Nutrove has a dynamic user interface that is cross compatible with all phones and laptops.</p>
         </div>
         <div class="col-md-6">
           <img class="img-responsive" src="images/jules.png" id="nathanPhoto">
           <h3 id="nameTitle">Jules Bibonimana</h3>
-          <p id="bioInfo"><span id="bioTitle">SOFTWARE ENGINEER</span></br> Enjoys participating in the world of tech, and responsible for the collection and storage of users data.</p>
+          <p id="bioInfo" class="jules"><span id="bioTitle">SOFTWARE ENGINEER</span></br> Enjoys participating in the world of tech, and responsible for the collection and storage of users data.</p>
         </div>
       </div>
       <div class="row" id="secondRow">
         <div class="col-md-6">
           <img class="img-responsive" src="images/christian.png" id="chrisPhoto">
           <h3 id="nameTitle">Christian Joachim</h3>
-          <p id="bioInfo"><span id="bioTitle">SENIOR SOFTWARE DEVELOPER</span></br>Highly experienced in software development, Joachim's efforts are focused on creating a reliable and fluid application
+          <p id="bioInfo" class="spacing"><span id="bioTitle">SENIOR SOFTWARE DEVELOPER</span></br>Highly experienced in software development, Joachim's efforts are focused on creating a reliable and fluid application
 					for Nutrove's users.</p>
         </div>
         <div class="col-md-6">
           <img class="img-responsive" src="images/noah.png" id="noahPhoto">
           <h3 id="nameTitle">Noah Cowie</h3>
-          <p id="bioInfo"><span id="bioTitle">MACHINE LEARNING SPECIALIST</span></br>Noah works on the statistical engines that power Nutrove's data analysis systems.
+          <p id="bioInfo" class="spacing"><span id="bioTitle">MACHINE LEARNING SPECIALIST</span></br>Noah works on the statistical engines that power Nutrove's data analysis systems.
           These pieces of mathematical plumbing are what give the smarts to the slick user interface.</p>
         </div>
       </div>

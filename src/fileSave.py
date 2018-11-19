@@ -56,31 +56,7 @@ def upload_file():
 	return redirect(url_for('uploadImages.html'))
 @app.route('/home',methods=['POST','GET'])
 def index():
-	return
-				'''<!DOCTYPE html>
-				<html>
-				<body>
-
-				<h2>Sign up</h2>
-				<form action="/signup" method="post">
-				  <fieldset>
-				    <legend>Sign up</legend>
-				    Username:<br>
-				    <input type="text" name="username" value="username">
-				    <br>
-				    Email:<br>
-				    <input type="text" name="email" value="email">
-				    <br>
-				    Password:<br>
-				    <input type="password" name="password" value="username">
-				    <br><br>
-				    <input type="submit" value="Submit">
-				  </fieldset>
-				</form>
-
-				</body>
-				</html>'''
-	return redirect(url_for('uploadImages.html'))
+	return redirect(url_for('index.html'))
 
 @app.route('/signup',methods=['POST','GET'])
 def register():
@@ -111,7 +87,6 @@ def register():
 			return render_template('uploadImages.html')
 		app.logger.warn(error)
 	return render_template('signup.html')
-
 @app.route('/login', methods=['POST','GET'])
 def login():
 	if request.method=='POST':
