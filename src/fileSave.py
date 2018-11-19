@@ -4,15 +4,13 @@ url:http://flask.pocoo.org/docs/1.0/
 date: 9/23/2018
 '''
 import os
-from flask import Flask, flash, request,render_template,url_for,redirect,session
+from flask import (Flask,g, flash, request,render_template,url_for,redirect,session,url_for)
 from ocr_pipeline import correctReceipt
 from flask import Flask, flash, request, redirect, url_for
 from flask import session
 from werkzeug.utils import secure_filename
-from wtforms import Form 
-from passlib.hash import sha256_crypt
-import jaydebeapi
-from h2connect import connection
+from werkzeug.security import check_password_hash, generate_password_hash
+from dbConnect import databaseConnect
 
 UPLOAD_FOLDER=os.path.dirname(os.path.abspath(__file__))+'/upload_folder' #Directory to store files
 
@@ -55,16 +53,6 @@ def upload_file():
 			session["receipt"] = lastLines
 			app.logger.warn(lastLines)
 			return redirect(url_for('upload_file',filename=filename))
-	'''
-	return 
-	<!doctype html>
-	    <title>Receipt Scanner</title>
-	    <h1>Uploading pictures</h1>
-	    <form method=post enctype=multipart/form-data>
-	      <input type=file name=file>
-	      <input type=submit value=Upload>
-	    </form>
-	'''
 	return redirect(url_for('uploadImages.html'))
 @app.route('/home',methods=['POST','GET'])
 def index():
@@ -92,65 +80,59 @@ def index():
 		</html>'''
 	return redirect(url_for('index'))
 
-@app.route('/signup',methods=['POST','GET'])
-def signup():
-	try: 
-		#return("OKAY")
-		if request.method=="POST":
-			username=request.form['username']
-			password= sha256_crypt.encrypt(str(request.form['password']))
-			email=request.form['email']
-			cursor,con=connection()
-			x=cursor.execute("SELECT USERNAME FROM REGISTRATION where USERNAME = %s", username)
-			if int(len(x))>0:
-				flash("That name is taken please try again")
-				return redirect(url_for('signup'))
-				'''return 
-						<!DOCTYPE html>
-						<html>
-						<body>
 
-						<h2>Sign up</h2>
-						<form action="/signup" method="post">
-						  <fieldset>
-						    <legend>Sign up</legend>
-						    Username:<br>
-						    <input type="text" name="username" value="username">
-						    <br>
-						    Email:<br>
-						    <input type="text" name="username" value="email">
-						    <br>
-						    Password:<br>
-						    <input type="password" name="password" value="username">
-						    <br><br>
-						    <input type="submit" value="Submit">
-						  </fieldset>
-						</form>
-						</body>
-						</html>'''
-			else:
-				cursor.execute("INSERT INTO REGISTRATION (USERNAME,EMAIL,PASSWORD) VALUES (%S,%S,%S)", username,password,email)
-				con.commit()
-				flash("Thank you registering")
-				cursor.close()
-				con.close()
-				session['logged_in']=True
-				session['username']=username
-				return redirect(url_for('login')) #in our case it would be the main.html page
-	except Exception as e:
-		return(str(e))
+@app.route('/signup',methods=['POST','GET'])
+def register():
+	if request.method=='POST':
+		username=request.form['username']
+		password=request.form['password']
+		email=request.form['email']
+		db=databaseConnect('receipt-scanner-users.db')
+		error=None
+		if not username:
+			error='username must be filled'
+			app.logger.warn(error)
+		elif not password:
+			error='password must be filled'
+			app.logger.warn(error)
+		elif not email:
+			error='Email must be filled'
+			app.logger.warn(error)
+		elif db.execute('SELECT id from user WHERE username = ?',(username,)).fetchone() is not None: 
+			error= 'That user is already registered, try another'
+			app.logger.warn(error)
+		if error is None:
+			'''If there's no error then the username is available'''
+			db.execute('INSERT INTO user (username,password,email) VALUES (?,?,?)',(username,generate_password_hash(password),email))
+			db.commit()
+			db.close()
+			#return render_template('uploadImages.html')
+			return render_template('uploadImages.html')
+		app.logger.warn(error)
+	return render_template('signup.html')
 
 @app.route('/login', methods=['POST','GET'])
 def login():
-	if request.method=='GET':
-		username=request.form.get('username') #accessing the data inside
-		password= sha256_crypt.encrypt(str(request.form.get('password')))
-		return redirect(url_for('index'))
-	return redirect('index')
-	'''
-	return(redirect('/../index.hmtl'))'''
+	if request.method=='POST':
+		username=request.form['username']
+		password=request.form['password']
+		db=db=databaseConnect('receipt-scanner-users.db')
+		error=None
+		user=db.execute('SELECT * FROM user WHERE username =?',(username,)).fetchone()
+		if user is None:
+			error='Incorect username'
+			app.logger.warn(error)
+		elif not check_password_hash(user['password'],password):
+			error='Incorect password'
+			app.logger.warn(error)
+		if error is None:
+			session.clear()
+			session['user_id']= user['id']
+			app.logger.warn("You managed to login")
+			return render_template('stats.html')
+		flash(error)
+	return render_template('index.html')
 
-#def showfile():
 @app.route('/getData',methods=['GET'])
 def getData():
 	app.logger.warn("Fetching data:")
