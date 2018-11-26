@@ -225,34 +225,35 @@
       var recCarbs = 230;
       var recProtein = 195;
       var recFat = 69;
-      var calories = 0;
-      var carbs = 0;
-      var protein = 0;
-      var fat = 0;
+      var calories = 2204;
+      var carbs = 243;
+      var protein = 159;
+      var fat = 90;
             
       function setDate() {
         document.getElementById('dateText').innerHTML = daysOfWeek[today] + ", " + monthsOfYear[month] + " " + date;
-        checkDate();
+        macros();
+        drawDonut();
       }
       
-      function checkDate() {
-            console.log(document.getElementById('dateText').innerHTML);
-            console.log(daysOfWeek[today]);
-            if ("Monday" == daysOfWeek[today]) {
-              calories = 242;
-              carbs = 24;
-              protein = 12;
-              fat = 7;
-            }
-            else {
-              calories = 0;
-              carbs = 0;
-              protein = 0;
-              fat = 0;
-            }
-            macros();
-            drawDonut();
-      }
+      //function checkDate() {
+      //      console.log(document.getElementById('dateText').innerHTML);
+      //      console.log(daysOfWeek[today]);
+      //      if ("Monday" == daysOfWeek[today]) {
+      //        calories = 242;
+      //        carbs = 24;
+      //        protein = 12;
+      //        fat = 7;
+      //      }
+      //      else {
+      //        calories = 0;
+      //        carbs = 0;
+      //        protein = 0;
+      //        fat = 0;
+      //      }
+      //      macros();
+      //      drawDonut();
+      //}
       
       function changeDate(arrow) {
         var direction = arrow.className;
