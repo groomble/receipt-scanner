@@ -146,7 +146,15 @@
           resultText = "BAKERY,AN 9 GRAIN BREAD,3.99,DELI,ND HONEY CURED HAM,2.54,TOI TURKEY,7.06,EGGLND LG WHT EGG,3.59,MEAT,ANG TOP RD LND BRL,5.49,ZUCHINNI GREEN,4.66,BANANA,1.32,GROCERY,DAN 8PK ACTVIA ST/BL,4.49,TOTAL TAX,0.00,BALANCE DUE,33.14";
           resultText = resultText.trim();
           var arrayVals = resultText.split(",");
+          setCookie("username","bread", 10);
           addElement(arrayVals, "receiptTable");
+        }
+        
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires="+ d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/stats.html";
         }
         
         function addElement(arrayVals, tableId) {
