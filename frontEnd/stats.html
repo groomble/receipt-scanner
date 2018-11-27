@@ -194,9 +194,9 @@
         <div class="col-md-1"></div>
         <div class="col-md-3" id="spendingRates">
           <h3 id="dailyVals" style="text-align: left">Average Spending Rates</h3>
-          <h4 class="heroFont macros" style="margin-top: 5vh; text-align: left">Weekly: <span style="color: green">$33.14</span></h4>
-          <h4 class="heroFont macros" style="text-align: left">Monthly: <span style="color: green">$132.56</span></h4>
-          <h4 class="heroFont macros" style="text-align: left">Annually: <span style="color: green">$1590.72</span></h4>
+          <h4 class="heroFont macros" style="margin-top: 5vh; text-align: left">Weekly: <span style="color: green" id="weeklySpending"></span></h4>
+          <h4 class="heroFont macros" style="text-align: left">Monthly: <span style="color: green" id="monthlySpending"></span></h4>
+          <h4 class="heroFont macros" style="text-align: left">Annually: <span style="color: green" id="annualSpending"></span></h4>
           <h4 class="heroFont macros" style="margin-top: 5vh; text-align: left">Monthly Goal: <span style="color: green" id="monthlyGoal">$150.00</span></h4>
           <input id="goal" data-slider-id='goalSlider' type="text" data-slider-min="0" data-slider-max="200" data-slider-step="1" data-slider-value="150"/>
         </div>
@@ -206,7 +206,8 @@
         <div class="col-md-1"></div>
       </div>
     </div> 
-    
+  </body>
+  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <script src="bootstrap-3.3.7-dist/js/bootstrap-slider.min.js"></script>
@@ -221,6 +222,7 @@
       var today = dateToday.getDay();
       var month = dateToday.getMonth();
       var date = dateToday.getDate();
+      var financial = [];
       var recCals = 2321;
       var recCarbs = 230;
       var recProtein = 195;
@@ -231,32 +233,20 @@
       var fat = 90;
       checkCookie();
       
-      function getCookie(cname) {
-          var name = cname + "=";
-          var decodedCookie = decodeURIComponent(document.cookie);
-          var ca = decodedCookie.split(';');
-          for(var i = 0; i <ca.length; i++) {
-              var c = ca[i];
-              while (c.charAt(0) == ' ') {
-                  c = c.substring(1);
-              }
-              if (c.indexOf(name) == 0) {
-                  return c.substring(name.length, c.length);
-              }
-          }
-          return "";
-      }
-      
-      function checkCookie() {
-          var username = getCookie("username");
-          if (username != "") {
-              alert("Welcome again " + username);
-          } else {
-              username = prompt("Please enter your name:", "");
-              if (username != "" && username != null) {
-                  setCookie("username", username, 365);
-              }
-          }
+      function checkCookie() { // Courtesy of https://www.tutorialspoint.com/How-can-I-list-all-cookies-on-the-current-page-with-JavaScript
+          var allcookies = document.cookie;
+            console.log("All Cookies : " + allcookies );
+
+            // Get all the cookies pairs in an array
+            cookiearray = allcookies.split(';');
+
+            // Now take key value pair out of this array
+            for(var i=0; i<cookiearray.length; i++) {
+               name = cookiearray[i].split('=')[0];
+               value = cookiearray[i].split('=')[1];
+               financial.push(value);
+               console.log(name + " : " + value);
+            }
       }
             
       function setDate() {
@@ -424,6 +414,19 @@
       
       //line
       function drawChart(value) {
+            var totalSpending = 0.0;
+            for (i=0; i<financial.length; i++) {
+              totalSpending += parseFloat(financial[i]);
+            }
+            
+            totalSpending = totalSpending.toFixed(2);
+            var monthlySpending = (totalSpending*4).toFixed(2);
+            var annualSpending = (monthlySpending*12).toFixed(2);
+            
+            document.getElementById("weeklySpending").innerHTML = "$" + totalSpending;
+            document.getElementById("monthlySpending").innerHTML = "$" + monthlySpending;
+            document.getElementById("annualSpending").innerHTML = "$" + annualSpending;
+            
             var ctxL = document.getElementById("lineChart").getContext('2d');
             new Chart(ctxL, {
               type: 'line',
@@ -431,7 +434,7 @@
                 labels: ["November", "December", "January", "February", "March", "April", "May"],
                 datasets: [{
                     label: "Monthly Spending",
-                    data: [33.14, 0, 0, 0, 0, 0, 0],
+                    data: [totalSpending, 0, 0, 0, 0, 0, 0],
                     backgroundColor: [
                       'rgba(185, 255, 178, .2)',
                     ],
@@ -459,5 +462,4 @@
             });  
       }
     </script>
-  </body>
 </html>

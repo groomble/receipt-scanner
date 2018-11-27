@@ -142,49 +142,35 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <script>
+      var globalArray = [];
+      
       function dataRequest() {
           resultText = "BAKERY,AN 9 GRAIN BREAD,3.99,DELI,ND HONEY CURED HAM,2.54,TOI TURKEY,7.06,EGGLND LG WHT EGG,3.59,MEAT,ANG TOP RD LND BRL,5.49,ZUCHINNI GREEN,4.66,BANANA,1.32,GROCERY,DAN 8PK ACTVIA ST/BL,4.49,TOTAL TAX,0.00,BALANCE DUE,33.14";
           resultText = resultText.trim();
           var arrayVals = resultText.split(",");
-          setCookie("username","bread", 10);
           addElement(arrayVals, "receiptTable");
         }
         
-        function setCookie(cname, cvalue, exdays) {
+        function setCookie(cname, cvalue, exdays) { // Courtesy of https://www.w3schools.com/js/js_cookies.asp
             var d = new Date();
             d.setTime(d.getTime() + (exdays*24*60*60*1000));
             var expires = "expires="+ d.toUTCString();
             document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-            checkCookie();
         }
         
-        function getCookie(cname) {
-          var name = cname + "=";
-          var decodedCookie = decodeURIComponent(document.cookie);
-          var ca = decodedCookie.split(';');
-          for(var i = 0; i <ca.length; i++) {
-              var c = ca[i];
-              while (c.charAt(0) == ' ') {
-                  c = c.substring(1);
-              }
-              if (c.indexOf(name) == 0) {
-                  return c.substring(name.length, c.length);
-              }
-          }
-          return "";
-      }
-      
-      function checkCookie() {
-          var username = getCookie("username");
-          if (username != "") {
-              alert("Welcome again " + username);
-          } else {
-              username = prompt("Please enter your name:", "");
-              if (username != "" && username != null) {
-                  setCookie("username", username, 365);
-              }
-          }
-      }
+        function deleteAllCookies() {
+            var allcookies = document.cookie;
+            
+            // Get all the cookies pairs in an array
+            cookiearray = allcookies.split(';');
+
+            // Now take key value pair out of this array
+            for(var i=0; i<cookiearray.length; i++) {
+              name = cookiearray[i].split('=')[0];
+              value = cookiearray[i].split('=')[1];
+              document.cookie = name+"=; expires = Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+            }
+        }
         
         function addElement(arrayVals, tableId) {
             var tablePosition = 0;
@@ -234,6 +220,7 @@
                         }
                         newCol.appendChild(x);
                         currentRow = document.createElement("tr");
+                        globalArray.push(arrayVals[i]);
                         table.appendChild(currentRow);
                         costAppended = true;
                         counter = -1;
@@ -268,39 +255,45 @@
         };
 
       function confirmSelections() {
-        //var deleteRows = [];
-        //var deleteRows1 = [];
         var selectedValues = [];
+        var priceValues = [];
         var table1 = document.getElementById("receiptTable");
         var table2 = document.getElementById("receiptTable2"); 
         var rows = table1.getElementsByTagName("tr");
         var row = table2.getElementsByTagName("tr");
-        var cells = table1.getElementsByTagName("td");
-        var cell = table2.getElementsByTagName("td");
 
         for (i=1; i<(document.getElementById("receiptTable").rows.length); i++) {
           if (document.getElementById("ckx" + i).checked) {
             rows[i-1].style.color = "#1aba24";
-            //console.log(rows[i-1].cells[0].innerHTML);
-            selectedValues.push(rows[i-1].cells[0].innerHTML);
-            selectedValues.push(rows[i-1].cells[1].innerHTML);
+            priceValues.push(globalArray[i-1]);
+            if (rows[i-1].cells[1].innerHTML == "") {
+              selectedValues.push(rows[i-1].cells[0].innerHTML);
+            } else {
+              selectedValues.push(rows[i-1].cells[1].innerHTML);
+            }
           }
         }
         for (i=7; i<(document.getElementById("receiptTable2").rows.length+6); i++) {
           if (document.getElementById("ckx" + i).checked) {
             row[i-7].style.color = "#1aba24";
-            
-            //selectedValues.push(row[i-7].cell[0].innerHTML);
-            //selectedValues.push(row[i-7].cell[1].innerHTML);
+            priceValues.push(globalArray[i-1]);
+            if (row[i-7].cells[1].innerHTML == "") {
+              selectedValues.push(row[i-7].cells[0].innerHTML);
+            } else {
+              selectedValues.push(row[i-7].cells[1].innerHTML);
+            }
           }
+          }
+          
+        // Delete all cookies before creating our new ones
+        deleteAllCookies();
+        
+        // Create cookies for stats page
+        for (i=0; i<selectedValues.length; i++) {
+          setCookie(selectedValues[i],priceValues[i], 365);
         }
-        //for (i=0; i<deleteRows.length; i++) {
-        //  document.getElementById("receiptTable").deleteRow(deleteRows[i]);
-        //}
-        //for (i=0; i<deleteRows1.length; i++) {
-        //  document.getElementById("receiptTable1").deleteRow(deleteRows1[i]);
-        //}
       }
+      
       
       function clearSelections() {
         for (i=1; i<(document.getElementById("receiptTable2").rows.length+6); i++) {
