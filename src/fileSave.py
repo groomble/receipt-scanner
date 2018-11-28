@@ -57,7 +57,6 @@ def upload_file():
 @app.route('/home',methods=['POST','GET'])
 def index():
 	return redirect(url_for('index.html'))
-
 @app.route('/signup',methods=['POST','GET'])
 def register():
 	if request.method=='POST':
