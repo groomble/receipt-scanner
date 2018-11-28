@@ -30,6 +30,7 @@
       }
       td {
         padding: 10px;
+        width: 15vw;
       }
       table {
         margin: auto;
@@ -70,8 +71,11 @@
     
     <div class="container">
         <h1 class="heroFont"style="text-align: center; margin-bottom: 5vh">Receipts</h1>
-        <div class="col-md-12" id="receiptDiv">
+        <div class="col-md-6" id="receiptDiv">
             <table id="receiptTable"></table>
+        </div>
+        <div class="col-md-6" id="receiptDiv">
+            <table id="receiptTable1"></table>
         </div>
     </div>
     
@@ -89,12 +93,22 @@
         //    xReq.open("GET", "/receipt-scanner/getData", true);
         //    xReq.send();
         //}
-        
+        count = 0;
         function dataRequest() {
-          resultText = "BAKERY,AN 9 GRAIN BREAD,3.99,DELI,ND HONEY CURED HAM,2.54,TOI TURKEY,7.06,EGGLND LG WHT EGG,3.59,MEAT,ANG TOP RD LND BRL,5.49,ZUCHINNI GREEN,4.66,BANANA,1.32,GROCERY,DAN 8PK ACTVIA ST/BL,4.49,TOTAL TAX,0.00,BALANCE DUE,33.14";
+          if (count == 0) {
+            resultText = "BAKERY,AN 9 GRAIN BREAD,3.99,DELI,ND HONEY CURED HAM,2.54,TOI TURKEY,7.06,EGGLND LG WHT EGG,3.59,MEAT,ANG TOP RD LND BRL,5.49,ZUCHINNI GREEN,4.66,BANANA,1.32,GROCERY,DAN 8PK ACTVIA ST/BL,4.49,TOTAL TAX,0.00,BALANCE DUE,33.14";
+          } else if (count == 1) {
+            resultText = "1 HF PANI CKN SPIN,3.19,1 SOUP 12 OZ,2.19,SUBTOTAL,5.38,PAYMENT,5.38";
+          }
+          
           resultText = resultText.trim();
           var arrayVals = resultText.split(",");
           addElement(arrayVals);
+          if (count == 0) {
+            count++;
+            dataRequest();
+          }
+          return;
         }
         
         function addElement(arrayVals) {
@@ -112,7 +126,12 @@
                 counter++;
             }
             
-            var table = document.getElementById("receiptTable"); 
+          if (count == 0) {
+            var table = document.getElementById("receiptTable");
+          }
+          else {
+            table = document.getElementById("receiptTable1");
+          }
           
             var currentRow = document.createElement("tr");
             table.appendChild(currentRow);
