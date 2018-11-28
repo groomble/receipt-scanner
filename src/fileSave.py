@@ -86,6 +86,7 @@ def register():
 			return render_template('uploadImages.html')
 		app.logger.warn(error)
 	return render_template('signup.html')
+	
 @app.route('/login', methods=['POST','GET'])
 def login():
 	if request.method=='POST':
@@ -104,7 +105,7 @@ def login():
 			session.clear()
 			session['user_id']= user['id']
 			app.logger.warn("You managed to login")
-			return render_template('stats.html')
+			return render_template('uploadImages.html')
 		flash(error)
 	return render_template('index.html')
 
